@@ -134,7 +134,7 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region DeleteUsuario
-        [HttpDelete]
+        [HttpDelete("{idusuario}")]
         public IActionResult DeleteUsuario(int idusuario)
         {
             try

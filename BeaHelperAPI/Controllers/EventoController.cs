@@ -23,17 +23,17 @@ namespace BeaHelperAPI.Controllers
         }
 
         #region Get Evento por ID
-        [HttpGet("{idvaga}")]
-        public IActionResult GetEvento(int idvaga)
+        [HttpGet("{idevento}")]
+        public IActionResult GetEvento(int idevento)
         {
             try
             {
-                if (idvaga > 0)
+                if (idevento > 0)
                 {
-                    bool ExisteVaga = Vaga_P2.ExisteVaga(idvaga);
+                    bool ExisteVaga = Vaga_P2.ExisteVaga(idevento);
                     if (ExisteVaga)
                     {
-                        var vaga = _vagaService.CarregaVaga(idvaga);
+                        var vaga = _vagaService.CarregaVaga(idevento);
                         return Ok(vaga);
                     }
                     else
@@ -168,6 +168,46 @@ namespace BeaHelperAPI.Controllers
                         catch (Exception)
                         {
                             return BadRequest();
+                        }
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
+        #region DeleteEvento
+        [HttpDelete("{idevento}")]
+        public IActionResult DeleteUsuario(int idevento)
+        {
+            try
+            {
+                if (idevento > 0)
+                {
+                    bool ExisteUsuario = Vaga_P2.ExisteVaga(idevento);
+
+                    if (ExisteUsuario)
+                    {
+                        try
+                        {
+                            Vaga_P1.Delete(idevento);
+                            return Ok();
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex);
                         }
                     }
                     else
