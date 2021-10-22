@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaHelperAPI", "BeaHelperAPI\BeaHelperAPI.csproj", "{891CF76D-D510-43F2-89A4-266FA518CE59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeaHelper.BLL", "BeaHelper.BLL\BeaHelper.BLL.csproj", "{AA96640A-FF60-4D81-BD55-29CFA0B93C94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{891CF76D-D510-43F2-89A4-266FA518CE59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{891CF76D-D510-43F2-89A4-266FA518CE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{891CF76D-D510-43F2-89A4-266FA518CE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{891CF76D-D510-43F2-89A4-266FA518CE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA96640A-FF60-4D81-BD55-29CFA0B93C94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA96640A-FF60-4D81-BD55-29CFA0B93C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA96640A-FF60-4D81-BD55-29CFA0B93C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA96640A-FF60-4D81-BD55-29CFA0B93C94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05DE55AA-823B-4FDE-802D-B9450B33F255}
+	EndGlobalSection
+EndGlobal
