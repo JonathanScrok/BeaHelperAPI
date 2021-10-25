@@ -9,5 +9,6 @@ namespace BeaHelper.BLL.Models {
         public int Id_Candidatura { get; set; }
         public int Id_Vaga { get; set; }
         public int Id_Usuario { get; set; }
+        public DateTime DataCadastro { get; set; }
     }
 }
