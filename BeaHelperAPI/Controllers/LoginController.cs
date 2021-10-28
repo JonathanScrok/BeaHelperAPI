@@ -66,8 +66,8 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
-        #region GET {email}/{senha}/logincompleto
-        [HttpGet("{email}/{senha}/logincompleto")]
+        #region GET logincompleto/{email}/{senha}
+        [HttpGet("logincompleto/{email}/{senha}")]
         public IActionResult GetLogin(string email, string senha)
         {
             try
@@ -94,8 +94,8 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
-        #region GET {email}/{senha}/existencia
-        [HttpGet("{email}/{senha}/existencia")]
+        #region GET existe/{email}/{senha}
+        [HttpGet("existe/{email}/{senha}")]
         public IActionResult ExistenciaLogin(string email, string senha)
         {
             try
@@ -160,6 +160,46 @@ namespace BeaHelperAPI.Controllers
                     {
                         _loginService.AtualizarLoginBanco(login);
                         return Ok();
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
+        #region DeleteLogin
+        [HttpDelete("{idlogin}")]
+        public IActionResult DeleteUsuario(int idlogin)
+        {
+            try
+            {
+                if (idlogin > 0)
+                {
+                    bool ExisteUsuario = Login_P1.BuscaLogin(idlogin);
+
+                    if (ExisteUsuario)
+                    {
+                        try
+                        {
+                            Login_P1.Delete(idlogin);
+                            return Ok();
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex);
+                        }
                     }
                     else
                     {

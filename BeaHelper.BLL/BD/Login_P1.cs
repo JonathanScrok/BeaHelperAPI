@@ -134,6 +134,7 @@ namespace BeaHelper.BLL.BD
 
         private const string UPDATE_LOGIN = @"UPDATE helper.Logins SET Id_Usuario = @Id_Usuario, Email = @Email, Senha = @Senha, DataCadastro = @DataCadastro WHERE Id_Login = @Id_Login";
         private const string INSERT_LOGIN = @"INSERT INTO helper.Logins(Id_Usuario, Email, Senha , DataCadastro) VALUES (@Id_Usuario, @Email, @Senha, @DataCadastro)";
+        private const string DELETE_LOGIN = @"DELETE FROM helper.Logins WHERE Id_Login = @Id_Login";
         #endregion
 
         #region Metodos
@@ -442,6 +443,38 @@ namespace BeaHelper.BLL.BD
                 this.Insert(trans);
             else
                 this.Update(trans);
+        }
+        #endregion
+
+        #region Delete
+        public static bool Delete(int idlogin)
+        {
+            List<SqlParameter> parms = new List<SqlParameter>();
+            parms.Add(new SqlParameter("@Id_Login", SqlDbType.Int, 4));
+
+            parms[0].Value = idlogin;
+
+            SqlConnection conn = null;
+            conn = new SqlConnection(stringConnection);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand(DELETE_LOGIN, conn);
+
+            for (int i = 0; i < parms.Count; i++)
+            {
+                cmd.Parameters.Add(parms[i]);
+            }
+
+            var quantidade = cmd.ExecuteNonQuery();
+
+            if (quantidade > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
 
