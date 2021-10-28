@@ -1,10 +1,12 @@
 ﻿using BeaHelper.BLL.BD;
+using BeaHelper.BLL.Models;
 using BeaHelper.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BeaHelperAPI.Controllers
@@ -20,7 +22,7 @@ namespace BeaHelperAPI.Controllers
             _logger = logger;
         }
 
-        #region Get Candidatura por ID
+        #region Get Candidatura por IDCandidatura
         [HttpGet("{idcandidatura}")]
         public IActionResult GetCandidatura(int idcandidatura)
         {
@@ -115,6 +117,118 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region PostCandidatura
+        [HttpPost]
+        public IActionResult PostCandidatura(VagaCandidatura candidatura)
+        {
+            try
+            {
+                if (candidatura != null)
+                {
+                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(candidatura.Id_Vaga, candidatura.Id_Usuario);
+
+                    if (!ExisteCandidatura)
+                    {
+                        _candidaturaService.CadastrarCandidaturaBanco(candidatura);
+                        return Ok();
+                    }
+                    else
+                    {
+                        return StatusCode((int)HttpStatusCode.Forbidden, "Candidatura já cadastrada.");
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
+        #region UpdateCandidatura
+        [HttpPut]
+        public IActionResult UpdateCandidatura(VagaCandidatura candidatura)
+        {
+            try
+            {
+                if (candidatura != null && candidatura.Id_Candidatura > 0)
+                {
+                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(candidatura.Id_Candidatura);
+
+                    if (ExisteCandidatura)
+                    {
+                        try
+                        {
+                            _candidaturaService.AtualizarCandidaturaBanco(candidatura);
+                            return Ok();
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex);
+                        }
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
+        #region DeleteCandidatura
+        [HttpDelete("{idcandidatura}")]
+        public IActionResult DeleteCandidatura(int idcandidatura)
+        {
+            try
+            {
+                if (idcandidatura > 0)
+                {
+                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(idcandidatura);
+
+                    if (ExisteCandidatura)
+                    {
+                        try
+                        {
+                            VagaCandidaturas_P1.Delete(idcandidatura);
+                            return Ok();
+                        }
+                        catch (Exception ex)
+                        {
+                            return BadRequest(ex);
+                        }
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
 
     }
 }

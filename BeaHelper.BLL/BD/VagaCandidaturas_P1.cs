@@ -110,6 +110,7 @@ namespace BeaHelper.BLL.BD
         private const string SELECT_TODASCANDIDATURAS = @"select * from helper.VagaCandidaturas";
         private const string SELECT_BUSCA_CANDIDATURAID = @"select * from helper.VagaCandidaturas where Id_Candidatura = @Id_Candidatura";
         private const string SELECT_BUSCA_CANDIDATURAID_COUNT = @"select Count(*) from helper.VagaCandidaturas where Id_Candidatura = @Id_Candidatura";
+        private const string SELECT_BUSCA_CANDIDATURA_COUNT = @"select Count(*) from helper.VagaCandidaturas where Id_Vaga = Id_Vaga And Id_Usuario = @Id_Usuario";
         private const string SELECT_BUSCA_CANDIDATURA_IDUSUARIO = @"select * from helper.VagaCandidaturas where Id_Usuario = @Id_Usuario";
         private const string SELECT_BUSCA_CANDIDATURA_IDVAGA = @"select * from helper.VagaCandidaturas where Id_Vaga = @Id_Vaga";
         private const string SELECT_BUSCA_CANDIDATURA_IDVAGA_IDUSUARIO = @"select * from helper.VagaCandidaturas where Id_Vaga = @Id_Vaga AND Id_Usuario = @Id_Usuario";
@@ -185,7 +186,7 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region Busca Todas Candidaturas do Usuario por ID
+        #region Busca Candidaturas do Usuario
         public static List<VagaCandidatura> TodasCandidaturasUsuario(int IdUsuario)
         {
             SqlConnection conn = null;
@@ -321,20 +322,46 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Verifica se a Candidatura Existe
-        public static bool ExisteCandidatura(int IdVaga)
+        public static bool ExisteCandidatura(int IdCandidatura)
         {
             SqlConnection conn = null;
             int quantidade;
 
             List<SqlParameter> parms = new List<SqlParameter>();
             parms.Add(new SqlParameter("@Id_Candidatura", SqlDbType.Int, 4));
-            parms[0].Value = IdVaga;
+            parms[0].Value = IdCandidatura;
 
             conn = new SqlConnection(stringConnection);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURAID_COUNT, conn);
             cmd.Parameters.Add(parms[0]);
+
+            quantidade = Convert.ToInt32(cmd.ExecuteScalar());
+
+            if (quantidade > 0)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool ExisteCandidatura(int idVaga, int idUsuario)
+        {
+            SqlConnection conn = null;
+            int quantidade;
+
+            List<SqlParameter> parms = new List<SqlParameter>();
+            parms.Add(new SqlParameter("@Id_Vaga", SqlDbType.Int, 4));
+            parms.Add(new SqlParameter("@Id_Usuario", SqlDbType.Int, 4));
+            parms[0].Value = idVaga;
+            parms[1].Value = idUsuario;
+
+            conn = new SqlConnection(stringConnection);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_COUNT, conn);
+            cmd.Parameters.Add(parms[0]);
+            cmd.Parameters.Add(parms[1]);
 
             quantidade = Convert.ToInt32(cmd.ExecuteScalar());
 

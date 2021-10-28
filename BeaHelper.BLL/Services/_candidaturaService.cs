@@ -22,12 +22,12 @@ namespace BeaHelper.BLL.Services
 
         public static void AtualizarCandidaturaBanco(VagaCandidatura vagaCandidatura)
         {
-            VagaCandidaturas_P1 candidatura = new VagaCandidaturas_P1();
+            VagaCandidaturas_P1 candidatura = new VagaCandidaturas_P1(vagaCandidatura.Id_Candidatura);
 
             candidatura.IdCandidatura = vagaCandidatura.Id_Candidatura;
             candidatura.IdUsuario = vagaCandidatura.Id_Usuario;
             candidatura.IdVaga = vagaCandidatura.Id_Vaga;
-            candidatura.DataCadastro = candidatura.DataCadastro;
+            candidatura.DataCadastro = vagaCandidatura.DataCadastro;
             candidatura.Save();
         }
 
