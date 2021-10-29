@@ -4,11 +4,8 @@ using BeaHelper.BLL.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
+
 
 namespace BeaHelperAPI.Controllers
 {
@@ -34,6 +31,9 @@ namespace BeaHelperAPI.Controllers
 
 
         #region Get Login por ID
+        /// <summary>
+        /// Busca Login por Id_Login.
+        /// </summary>
         [HttpGet("{idlogin}")]
         public IActionResult GetLogin(int idlogin)
         {
@@ -66,8 +66,11 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
-        #region GET logincompleto/{email}/{senha}
-        [HttpGet("logincompleto/{email}/{senha}")]
+        #region GET login-completo/{email}/{senha}
+        /// <summary>
+        /// Busca LoginCompleto por email e senha.
+        /// </summary>
+        [HttpGet("login-completo/{email}/{senha}")]
         public IActionResult GetLogin(string email, string senha)
         {
             try
@@ -95,6 +98,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region GET existe/{email}/{senha}
+        /// <summary>
+        /// (bool) Busca se o Login Existe por email e senha.
+        /// </summary>
         [HttpGet("existe/{email}/{senha}")]
         public IActionResult ExistenciaLogin(string email, string senha)
         {
@@ -114,6 +120,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region PostLogin
+        /// <summary>
+        /// Insert de Login.
+        /// </summary>
         [HttpPost]
         public IActionResult PostLogin(Login login)
         {
@@ -147,6 +156,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region UpdateLogin
+        /// <summary>
+        /// Update de Login.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateLogin(Login login)
         {
@@ -180,16 +192,19 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region DeleteLogin
+        /// <summary>
+        /// Delete de Login por Id_Login.
+        /// </summary>
         [HttpDelete("{idlogin}")]
-        public IActionResult DeleteUsuario(int idlogin)
+        public IActionResult DeleteLogin(int idlogin)
         {
             try
             {
                 if (idlogin > 0)
                 {
-                    bool ExisteUsuario = Login_P1.BuscaLogin(idlogin);
+                    bool ExisteLogin = Login_P1.BuscaLogin(idlogin);
 
-                    if (ExisteUsuario)
+                    if (ExisteLogin)
                     {
                         try
                         {
@@ -218,6 +233,5 @@ namespace BeaHelperAPI.Controllers
             }
         }
         #endregion
-
     }
 }

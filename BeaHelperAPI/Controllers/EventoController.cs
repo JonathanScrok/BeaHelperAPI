@@ -23,6 +23,9 @@ namespace BeaHelperAPI.Controllers
         }
 
         #region Get Evento por ID
+        /// <summary>
+        /// Busca evento por id_Evento.
+        /// </summary>
         [HttpGet("{idevento}")]
         public IActionResult GetEvento(int idevento)
         {
@@ -55,6 +58,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region Get Top 8 Evento
+        /// <summary>
+        /// Busca Top 8 Próximos eventos.
+        /// </summary>
         [HttpGet("top8")]
         public IActionResult GetTop8UltimosEventos()
         {
@@ -72,6 +78,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region Get Todos eventos
+        /// <summary>
+        /// Busca todos eventos.
+        /// </summary>
         [HttpGet("todos-eventos")]
         public IActionResult GetTodosEventos()
         {
@@ -89,6 +98,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region Get Meus eventos
+        /// <summary>
+        /// Busca eventos do Usuário por Id_Usuario_Adm.
+        /// </summary>
         [HttpGet("meus-eventos/{idusuarioadm}")]
         public IActionResult GetMeusEventos(int idusuarioadm)
         {
@@ -116,6 +128,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region PostEvento
+        /// <summary>
+        /// Insert de Evento.
+        /// </summary>
         [HttpPost]
         public IActionResult PostEvento(Vaga vaga)
         {
@@ -149,6 +164,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region UpdateEvento
+        /// <summary>
+        /// Update de Evento.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateEvento(Vaga vaga)
         {
@@ -189,6 +207,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region DeleteEvento
+        /// <summary>
+        /// Delete de Evento por Id_Evento.
+        /// </summary>
         [HttpDelete("{idevento}")]
         public IActionResult DeleteUsuario(int idevento)
         {

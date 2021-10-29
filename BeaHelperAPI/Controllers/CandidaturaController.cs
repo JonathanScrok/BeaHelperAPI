@@ -23,6 +23,9 @@ namespace BeaHelperAPI.Controllers
         }
 
         #region Get Candidatura por IDCandidatura
+        /// <summary>
+        /// Busca de Candidatura por Id_Candidatura.
+        /// </summary>
         [HttpGet("{idcandidatura}")]
         public IActionResult GetCandidatura(int idcandidatura)
         {
@@ -38,7 +41,7 @@ namespace BeaHelperAPI.Controllers
                     }
                     else
                     {
-                        return NotFound("Evento não encontrado");
+                        return NotFound("Candidatura não encontrada");
                     }
                 }
                 else
@@ -48,13 +51,16 @@ namespace BeaHelperAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
                 throw;
             }
         }
         #endregion
 
         #region Get Candidatura por Id_Usuario e Id_Evento
+        /// <summary>
+        /// Busca Candidatura pelo Id_Usuario e id_Evento.
+        /// </summary>
         [HttpGet("{idusuario}/{idevento}")]
         public IActionResult GetCandidaturaIdUsuIdVaga(int idusuario, int idevento)
         {
@@ -86,6 +92,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region Get Todas Candidaturas por Id_Evento
+        /// <summary>
+        /// Busca todas candidaturas do id_Evento.
+        /// </summary>
         [HttpGet("/todascandidaturas/{idevento}")]
         public IActionResult GetTodasCandidaturasEvento(int idevento)
         {
@@ -118,6 +127,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region PostCandidatura
+        /// <summary>
+        /// Insert de Candidatura.
+        /// </summary>
         [HttpPost]
         public IActionResult PostCandidatura(VagaCandidatura candidatura)
         {
@@ -151,6 +163,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region UpdateCandidatura
+        /// <summary>
+        /// Update de Candidatura.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateCandidatura(VagaCandidatura candidatura)
         {
@@ -191,6 +206,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region DeleteCandidatura
+        /// <summary>
+        /// Delete de Candidatura por Id_Candidatura).
+        /// </summary>
         [HttpDelete("{idcandidatura}")]
         public IActionResult DeleteCandidatura(int idcandidatura)
         {

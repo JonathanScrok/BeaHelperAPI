@@ -23,6 +23,9 @@ namespace BeaHelperAPI.Controllers
         }
 
         #region Get Todos usuarios
+        /// <summary>
+        /// Busca todos os usuários.
+        /// </summary>
         [HttpGet("todos-usuarios")]
         public IActionResult GetTodosUsuarios()
         {
@@ -40,6 +43,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region Get usuario por Email
+        /// <summary>
+        /// Busca usuário por email.
+        /// </summary>
         [HttpGet("{email}")]
         public IActionResult GetUsuarioEmail(string email)
         {
@@ -61,6 +67,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region PostUsuario
+        /// <summary>
+        /// Insert de Usuário.
+        /// </summary>
         [HttpPost]
         public IActionResult PostUsuario(Usuario usuario)
         {
@@ -94,6 +103,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region UpdateUsuario
+        /// <summary>
+        /// Update de Usuário.
+        /// </summary>
         [HttpPut]
         public IActionResult UpdateUsuario(Usuario usuario)
         {
@@ -134,6 +146,9 @@ namespace BeaHelperAPI.Controllers
         #endregion
 
         #region DeleteUsuario
+        /// <summary>
+        /// Delete de Usuário por Id_Usuario.
+        /// </summary>
         [HttpDelete("{idusuario}")]
         public IActionResult DeleteUsuario(int idusuario)
         {
