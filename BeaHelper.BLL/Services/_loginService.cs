@@ -29,7 +29,7 @@ namespace BeaHelper.BLL.Services
             login.IdUsuario = loginDados.Id_Usuario;
             login.Email = loginDados.Email;
             login.Senha = loginDados.Senha;
-            login.DataCadastro = DateTime.Now;
+            login.DataCadastro = loginDados.DataCadastro;
             login.Save();
         }
 

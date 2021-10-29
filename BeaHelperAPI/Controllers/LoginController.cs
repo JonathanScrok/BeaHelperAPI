@@ -75,9 +75,9 @@ namespace BeaHelperAPI.Controllers
         {
             try
             {
-                //Login model = new Login();
+                string senhaEncoding = _encodeSenha.HashValue(senha);
 
-                var model = Login_P1.BuscaLogin_EmailSenha(email, senha);
+                var model = Login_P1.BuscaLogin_EmailSenha(email, senhaEncoding);
 
                 if (model.Count > 0)
                 {
@@ -106,9 +106,9 @@ namespace BeaHelperAPI.Controllers
         {
             try
             {
-                //Login model = new Login();
+                string senhaEncoding = _encodeSenha.HashValue(senha);
 
-                var existe = Login_P1.ExisteLogin(email, senha);
+                var existe = Login_P1.ExisteLogin(email, senhaEncoding);
                 return Ok(existe);
             }
             catch (Exception ex)
@@ -134,6 +134,8 @@ namespace BeaHelperAPI.Controllers
 
                     if (!ExisteEmail)
                     {
+                        string senhaEncoding = _encodeSenha.HashValue(login.Senha);
+                        login.Senha = senhaEncoding;
                         _loginService.CadastrarLoginBanco(login);
                         return Ok("Success");
                     }
@@ -170,6 +172,8 @@ namespace BeaHelperAPI.Controllers
 
                     if (ExisteLogin)
                     {
+                        string senhaEncoding = _encodeSenha.HashValue(login.Senha);
+                        login.Senha = senhaEncoding;
                         _loginService.AtualizarLoginBanco(login);
                         return Ok();
                     }

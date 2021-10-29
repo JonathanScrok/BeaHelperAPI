@@ -28,7 +28,7 @@ namespace BeaHelper.BLL.Services
             Usuario.Nome = UsuarioDados.Nome;
             Usuario.Email = UsuarioDados.Email;
             Usuario.Sexo = UsuarioDados.Sexo;
-            Usuario.DataCadastro = DateTime.Now;
+            Usuario.DataCadastro = UsuarioDados.DataCadastro;
             Usuario.Save();
         }
 
