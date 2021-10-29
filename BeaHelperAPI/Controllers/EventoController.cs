@@ -57,6 +57,28 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region GET existe/{idevento}
+        /// <summary>
+        /// (bool) Busca se o Evento existe por Id_Evento.
+        /// </summary>
+        [HttpGet("existe/{idevento}")]
+        public IActionResult ExistenciaVaga(int idevento)
+        {
+            try
+            {
+                //Login model = new Login();
+
+                bool ExisteVaga = Vaga_P2.ExisteVaga(idevento);
+                return Ok(ExisteVaga);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+                throw;
+            }
+        }
+        #endregion
+
         #region Get Top 8 Evento
         /// <summary>
         /// Busca Top 8 Próximos eventos.
