@@ -42,7 +42,7 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
-        #region Get usuario por Email
+        #region Get Usuario por Email
         /// <summary>
         /// Busca usuário por email.
         /// </summary>
@@ -188,5 +188,28 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region Envio de Email
+        /// <summary>
+        /// Envia informações do voluntário por email.
+        /// </summary>
+        [HttpPost("envioemail/{idusuarioadm}/{idvaga}")]
+        public IActionResult EnvioUsuarioPorEmail(int idusuarioadm, int idvaga, Usuario usuario)
+        {
+            try
+            {
+                bool EmailEnviado = _envioEmailService.EnviarCandidatoParaDonoVaga(idusuarioadm, idvaga, usuario);
+                if (EmailEnviado)
+                    return Ok();
+                else
+                    return BadRequest();
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+        #endregion
     }
 }
