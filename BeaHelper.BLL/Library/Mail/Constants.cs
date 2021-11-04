@@ -10,8 +10,8 @@ namespace SyrusVoluntariado.Library.Mail {
         // SMTP - Enviar e-mail
 
         //Autenticação - Gmail
-        public readonly static string Usuario = "jonathanwsck@gmail.com";
-        public readonly static string Senha = "jonathan023996";
+        public readonly static string Usuario = "Beahelperteste@gmail.com";
+        public readonly static string Senha = "BeHelper@202Um";
 
         //Servidor SMTP
         public readonly static string ServidorSMTP = "smtp.gmail.com";

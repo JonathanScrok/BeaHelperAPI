@@ -193,16 +193,16 @@ namespace BeaHelperAPI.Controllers
         /// Envia informações do voluntário por email.
         /// </summary>
         [HttpPost("envioemail/{idusuarioadm}/{idvaga}")]
-        public IActionResult EnvioUsuarioPorEmail(int idusuarioadm, int idvaga, Usuario usuario)
+        public async Task<IActionResult> EnvioUsuarioPorEmail(int idusuarioadm, int idvaga, Usuario usuario)
         {
             try
             {
-                bool EmailEnviado = _envioEmailService.EnviarCandidatoParaDonoVaga(idusuarioadm, idvaga, usuario);
+                bool EmailEnviado = await _envioEmailService.EnviarCandidatoParaDonoVaga(idusuarioadm, idvaga, usuario);
+
                 if (EmailEnviado)
                     return Ok();
                 else
                     return BadRequest();
-
             }
             catch (Exception ex)
             {

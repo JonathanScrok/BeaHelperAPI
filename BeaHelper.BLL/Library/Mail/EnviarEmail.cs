@@ -12,7 +12,7 @@ namespace SyrusVoluntariado.Library.Mail
     public class EnviarEmail
     {
 
-        public static void EnviarMensagemContato(Usuario usuario, string emailAdm, int idVaga)
+        public static void EnviarEmailContato(Usuario usuario, string emailAdm, int idVaga)
         {
 
             string hrefListaVagas = "https://beahelper.herokuapp.com/vaga/listavoluntarios/" + idVaga;
@@ -51,5 +51,50 @@ namespace SyrusVoluntariado.Library.Mail
 
             smtp.Send(mensagem);
         }
+
+        public async static Task EnviarEmailContatoAsync(Usuario usuario, string emailAdm, int idVaga)
+        {
+            string hrefListaVagas = "https://beahelper.herokuapp.com/vaga/listavoluntarios/" + idVaga;
+            string Sexo;
+
+            if (usuario.Sexo == 1)
+            {
+                Sexo = "Masculino";
+            }
+            else if (usuario.Sexo == 2)
+            {
+                Sexo = "Feminino";
+            }
+            else
+            {
+                Sexo = "Prefiro não declarar";
+            }
+
+            string conteudo = string.Format("<p>Nome: {0}<br/> Email: {1}<br/> Sexo: {2}</p><p><a href='{3}'>Ver todos voluntários</a></p>", usuario.Nome, usuario.Email, Sexo, hrefListaVagas);
+
+            using (var mensagemDeEmail = new MailMessage())
+            {
+                mensagemDeEmail.From = new MailAddress(Constants.Usuario);
+
+                mensagemDeEmail.Subject = "Novos Voluntários para seu Evento!";
+                mensagemDeEmail.To.Add(emailAdm);
+                mensagemDeEmail.Body = "<h1>Você tem um novo voluntário para seu Evento:</h1>" + conteudo;
+                mensagemDeEmail.IsBodyHtml = true;
+
+                using (var smtpClient = new SmtpClient())
+                {
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new System.Net.NetworkCredential(Constants.Usuario, Constants.Senha);
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.Timeout = 20_000;
+
+                    await smtpClient.SendMailAsync(mensagemDeEmail);
+                }
+            }
+        }
+
     }
 }
