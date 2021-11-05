@@ -1,5 +1,6 @@
 ﻿using BeaHelper.BLL.BD;
 using BeaHelper.BLL.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SyrusVoluntariado.Library.Mail
 {
     public class EnviarEmail
     {
-
+        private static readonly ILogger<EnviarEmail> _logger;
         public static void EnviarEmailContato(Usuario usuario, string emailAdm, int idVaga)
         {
 
@@ -71,28 +72,35 @@ namespace SyrusVoluntariado.Library.Mail
             }
 
             string conteudo = string.Format("<p>Nome: {0}<br/> Email: {1}<br/> Sexo: {2}</p><p><a href='{3}'>Ver todos voluntários</a></p>", usuario.Nome, usuario.Email, Sexo, hrefListaVagas);
-
-            using (var mensagemDeEmail = new MailMessage())
+            try
             {
-                mensagemDeEmail.From = new MailAddress(Constants.Usuario);
-
-                mensagemDeEmail.Subject = "Novos Voluntários para seu Evento!";
-                mensagemDeEmail.To.Add(emailAdm);
-                mensagemDeEmail.Body = "<h1>Você tem um novo voluntário para seu Evento:</h1>" + conteudo;
-                mensagemDeEmail.IsBodyHtml = true;
-
-                using (var smtpClient = new SmtpClient())
+                using (var mensagemDeEmail = new MailMessage())
                 {
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new System.Net.NetworkCredential(Constants.Usuario, Constants.Senha);
-                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    smtpClient.Host = "smtp.gmail.com";
-                    smtpClient.Port = 587;
-                    smtpClient.EnableSsl = true;
-                    smtpClient.Timeout = 20_000;
+                    mensagemDeEmail.From = new MailAddress(Constants.Usuario);
 
-                    await smtpClient.SendMailAsync(mensagemDeEmail);
+                    mensagemDeEmail.Subject = "Novos Voluntários para seu Evento!";
+                    mensagemDeEmail.To.Add(emailAdm);
+                    mensagemDeEmail.Body = "<h1>Você tem um novo voluntário para seu Evento:</h1>" + conteudo;
+                    mensagemDeEmail.IsBodyHtml = true;
+
+                    using (var smtpClient = new SmtpClient())
+                    {
+                        smtpClient.UseDefaultCredentials = false;
+                        smtpClient.Credentials = new System.Net.NetworkCredential(Constants.Usuario, Constants.Senha);
+                        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                        smtpClient.Host = "smtp.gmail.com";
+                        smtpClient.Port = 587;
+                        smtpClient.EnableSsl = true;
+                        smtpClient.Timeout = 20_000;
+
+                        await smtpClient.SendMailAsync(mensagemDeEmail);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogInformation("Erro montagem do email e envio:" + ex);
+                throw;
             }
         }
 

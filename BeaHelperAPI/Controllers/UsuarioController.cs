@@ -202,6 +202,7 @@ namespace BeaHelperAPI.Controllers
                 if (EmailEnviado)
                     return Ok();
                 else
+                    _logger.LogInformation("Erro ao enviar o email");
                     return BadRequest();
             }
             catch (Exception ex)

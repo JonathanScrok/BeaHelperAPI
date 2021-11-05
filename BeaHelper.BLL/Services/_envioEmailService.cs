@@ -1,5 +1,6 @@
 ﻿using BeaHelper.BLL.BD;
 using BeaHelper.BLL.Models;
+using Microsoft.Extensions.Logging;
 using SyrusVoluntariado.Library.Mail;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace BeaHelper.BLL.Services
 {
     public class _envioEmailService
     {
+        private static readonly ILogger<_envioEmailService> _logger;
+
         public async static Task<bool> EnviarCandidatoParaDonoVaga(int IdUsuarioAdm, int IdEvento, Usuario usuariovoluntatiado)
         {
             try
@@ -25,6 +28,7 @@ namespace BeaHelper.BLL.Services
             }
             catch (Exception ex)
             {
+                _logger.LogInformation("Erro service envio email:" + ex);
                 return false;
             }
         }
