@@ -13,7 +13,7 @@ namespace BeaHelper.BLL.Database
         public static string GetConnection()
         {
             //var connString = DbAcess.Configuration["ConnectionString"];
-            var connString = "Data Source=mssql-58073-0.cloudclusters.net,10001;Initial Catalog=be_helper;Integrated Security=False;User Id=SuperBeaHelper;Password=B3ah3lper#2021;MultipleActiveResultSets=True";
+            var connString = "Data Source=mssql-62760-0.cloudclusters.net,12044;Initial Catalog=be_helper;Integrated Security=False;User Id=SuperBeaHelper;Password=B3ah3lper#2021;MultipleActiveResultSets=True";
             return connString;
         }
 
