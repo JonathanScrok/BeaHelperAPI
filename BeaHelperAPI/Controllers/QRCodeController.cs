@@ -30,7 +30,7 @@ namespace SyrusVoluntariado.Controllers
                        QRCodeData.Compression.Uncompressed);
                 QRCodeData qrCodeData1 = new QRCodeData("wwwroot/qrcode/arquivo-" + nomearquivo + ".qrr",
                     QRCodeData.Compression.Uncompressed);
-                DeleteArquivo("wwwroot/qrcode/arquivo-" + nomearquivo + ".qrr");
+                //DeleteArquivo("wwwroot/qrcode/arquivo-" + nomearquivo + ".qrr");
                 QRCode qrCode = new QRCode(qrCodeData1);
                 Bitmap qrCodeImage = qrCode.GetGraphic(20);
                 ViewBag.QrCodeByte = BitmapToBytes(qrCodeImage);
