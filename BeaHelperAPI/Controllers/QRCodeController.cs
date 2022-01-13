@@ -38,7 +38,8 @@ namespace SyrusVoluntariado.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                Console.WriteLine("Erro: " + ex.Message);
+                return BadRequest(ex);
             }
 
         }
