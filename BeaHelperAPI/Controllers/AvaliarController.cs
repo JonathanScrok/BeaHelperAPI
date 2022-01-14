@@ -16,7 +16,11 @@ namespace BeaHelper.Controllers
     {
         private readonly ILogger<AvaliarController> _logger;
 
-        [HttpGet("{nota}/{idusuarioAvaliado}/{idusuarioLogado}")]
+        #region PostAvaliacao
+        /// <summary>
+        /// Posta Avaliacao do usuário
+        /// </summary>
+        [HttpPost("post-avaliacao/{nota}/{idusuarioAvaliado}/{idusuarioLogado}")]
         public IActionResult PostAvaliacao(int nota, int idusuarioAvaliado,int idusuarioLogado)
         {
             try
@@ -36,6 +40,8 @@ namespace BeaHelper.Controllers
             }
 
         }
+        #endregion
+
 
 
     }

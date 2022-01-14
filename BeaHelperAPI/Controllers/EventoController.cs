@@ -33,11 +33,11 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idevento > 0)
                 {
-                    bool ExisteVaga = Vaga_P2.ExisteVaga(idevento);
-                    if (ExisteVaga)
+                    bool ExisteEvento = Evento_P2.ExisteEvento(idevento);
+                    if (ExisteEvento)
                     {
-                        var vaga = _vagaService.CarregaVaga(idevento);
-                        return Ok(vaga);
+                        var evento = _eventoService.CarregaEvento(idevento);
+                        return Ok(evento);
                     }
                     else
                     {
@@ -51,7 +51,7 @@ namespace BeaHelperAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -62,18 +62,18 @@ namespace BeaHelperAPI.Controllers
         /// (bool) Busca se o Evento existe por Id_Evento.
         /// </summary>
         [HttpGet("existe/{idevento}")]
-        public IActionResult ExistenciaVaga(int idevento)
+        public IActionResult ExistenciaEvento(int idevento)
         {
             try
             {
                 //Login model = new Login();
 
-                bool ExisteVaga = Vaga_P2.ExisteVaga(idevento);
-                return Ok(ExisteVaga);
+                bool ExisteEvento = Evento_P2.ExisteEvento(idevento);
+                return Ok(ExisteEvento);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -88,8 +88,8 @@ namespace BeaHelperAPI.Controllers
         {
             try
             {
-                List<Vaga> vagas = Vaga_P2.Top8UltimasVagas();
-                return Ok(vagas);
+                List<Evento> eventos = Evento_P2.Top8UltimasEventos();
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
@@ -99,11 +99,15 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
-        [HttpGet("{idevento}/{idusuarioLogado}")]
+        #region Lista de voluntarios do evento
+        /// <summary>
+        /// Lista de Voluntarios do evento
+        /// </summary>
+        [HttpGet("Listavoluntarios-evento/{idevento}/{idusuarioLogado}")]
         public IActionResult ListaVoluntarios(int idevento, int idusuarioLogado)
         {
 
-            List<VagaCandidatura> ListaUsuariosVoluntariados = VagaCandidaturas_P1.TodasUsuarioCandidatadosVaga(idevento);
+            List<EventoCandidatura> ListaUsuariosVoluntariados = EventoCandidaturas_P1.TodasUsuarioCandidatadosEvento(idevento);
 
             List<UsuarioCompleto> voluntariosCompleto = new List<UsuarioCompleto>();
             List<int> IdfVoluntarios = new List<int>();
@@ -162,6 +166,7 @@ namespace BeaHelperAPI.Controllers
             return Ok(voluntariosCompleto);
 
         }
+        #endregion
 
         #region Get Todos eventos
         /// <summary>
@@ -172,8 +177,8 @@ namespace BeaHelperAPI.Controllers
         {
             try
             {
-                List<Vaga> vagas = Vaga_P2.TodasVagas();
-                return Ok(vagas);
+                List<Evento> eventos = Evento_P2.TodasEventos();
+                return Ok(eventos);
             }
             catch (Exception ex)
             {
@@ -194,9 +199,9 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idusuarioadm > 0)
                 {
-                    List<Vaga> vagas = Vaga_P2.MinhasVagas(idusuarioadm);
-                    if (vagas.Count > 0)
-                        return Ok(vagas);
+                    List<Evento> eventos = Evento_P2.MinhasEventos(idusuarioadm);
+                    if (eventos.Count > 0)
+                        return Ok(eventos);
                     else
                         return NotFound();
                 }
@@ -218,17 +223,17 @@ namespace BeaHelperAPI.Controllers
         /// Insert de Evento.
         /// </summary>
         [HttpPost]
-        public IActionResult PostEvento(Vaga vaga)
+        public IActionResult PostEvento(Evento evento)
         {
             try
             {
-                if (vaga != null)
+                if (evento != null)
                 {
-                    bool ExisteVagaComTitulo = Vaga_P2.ExisteTitulo(vaga.Titulo);
+                    bool ExisteEventoComTitulo = Evento_P2.ExisteTitulo(evento.Titulo);
 
-                    if (!ExisteVagaComTitulo)
+                    if (!ExisteEventoComTitulo)
                     {
-                        _vagaService.CadastrarVagaBanco(vaga);
+                        _eventoService.CadastrarEventoBanco(evento);
                         return Ok();
                     }
                     else
@@ -254,19 +259,19 @@ namespace BeaHelperAPI.Controllers
         /// Update de Evento.
         /// </summary>
         [HttpPut]
-        public IActionResult UpdateEvento(Vaga vaga)
+        public IActionResult UpdateEvento(Evento evento)
         {
             try
             {
-                if (vaga != null && vaga.Id_Vaga > 0)
+                if (evento != null && evento.Id_Evento > 0)
                 {
-                    bool ExisteVaga = Vaga_P2.ExisteVaga(vaga.Id_Vaga);
+                    bool ExisteEvento = Evento_P2.ExisteEvento(evento.Id_Evento);
 
-                    if (ExisteVaga)
+                    if (ExisteEvento)
                     {
                         try
                         {
-                            _vagaService.AtualizarVagaBanco(vaga);
+                            _eventoService.AtualizarEventoBanco(evento);
                             return Ok();
                         }
                         catch (Exception)
@@ -303,13 +308,13 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idevento > 0)
                 {
-                    bool ExisteUsuario = Vaga_P2.ExisteVaga(idevento);
+                    bool ExisteUsuario = Evento_P2.ExisteEvento(idevento);
 
                     if (ExisteUsuario)
                     {
                         try
                         {
-                            Vaga_P1.Delete(idevento);
+                            Evento_P1.Delete(idevento);
                             return Ok();
                         }
                         catch (Exception ex)

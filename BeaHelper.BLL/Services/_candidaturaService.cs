@@ -10,30 +10,30 @@ namespace BeaHelper.BLL.Services
 {
     public class _candidaturaService
     {
-        public static void CadastrarCandidaturaBanco(VagaCandidatura candidaturaDados)
+        public static void CadastrarCandidaturaBanco(EventoCandidatura candidaturaDados)
         {
-            VagaCandidaturas_P1 candidatura = new VagaCandidaturas_P1();
+            EventoCandidaturas_P1 candidatura = new EventoCandidaturas_P1();
 
             candidatura.IdUsuario = candidaturaDados.Id_Usuario;
-            candidatura.IdVaga = candidaturaDados.Id_Vaga;
+            candidatura.IdEvento = candidaturaDados.Id_Evento;
             candidatura.DataCadastro = DateTime.Now;
             candidatura.Save();
         }
 
-        public static void AtualizarCandidaturaBanco(VagaCandidatura vagaCandidatura)
+        public static void AtualizarCandidaturaBanco(EventoCandidatura eventoCandidatura)
         {
-            VagaCandidaturas_P1 candidatura = new VagaCandidaturas_P1(vagaCandidatura.Id_Candidatura);
+            EventoCandidaturas_P1 candidatura = new EventoCandidaturas_P1(eventoCandidatura.Id_Candidatura);
 
-            candidatura.IdCandidatura = vagaCandidatura.Id_Candidatura;
-            candidatura.IdUsuario = vagaCandidatura.Id_Usuario;
-            candidatura.IdVaga = vagaCandidatura.Id_Vaga;
-            candidatura.DataCadastro = vagaCandidatura.DataCadastro;
+            candidatura.IdCandidatura = eventoCandidatura.Id_Candidatura;
+            candidatura.IdUsuario = eventoCandidatura.Id_Usuario;
+            candidatura.IdEvento = eventoCandidatura.Id_Evento;
+            candidatura.DataCadastro = eventoCandidatura.DataCadastro;
             candidatura.Save();
         }
 
-        public static VagaCandidaturas_P1 CarregaCandidatura(int IdLogin)
+        public static EventoCandidaturas_P1 CarregaCandidatura(int IdLogin)
         {
-            VagaCandidaturas_P1 Candidatura = new VagaCandidaturas_P1(IdLogin);
+            EventoCandidaturas_P1 Candidatura = new EventoCandidaturas_P1(IdLogin);
             Candidatura.CompleteObject();
 
             return Candidatura;

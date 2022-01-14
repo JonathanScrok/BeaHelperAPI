@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BeaHelper.BLL.Models {
-    public class VagaCandidatura {
+    public class EventoCandidatura {
 
         public int Id_Candidatura { get; set; }
-        public int Id_Vaga { get; set; }
+        public int Id_Evento { get; set; }
         public int Id_Usuario { get; set; }
         public DateTime DataCadastro { get; set; }
     }

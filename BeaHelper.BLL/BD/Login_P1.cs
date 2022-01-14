@@ -233,7 +233,6 @@ namespace BeaHelper.BLL.BD
         public static bool BuscaLogin_Email(string Email)
         {
             SqlConnection conn = null;
-            SqlDataReader reader = null;
             int quantidade;
 
             List<SqlParameter> parms = new List<SqlParameter>();
@@ -289,9 +288,7 @@ namespace BeaHelper.BLL.BD
         public static bool ExisteLogin(string Email, string Senha)
         {
             SqlConnection conn = null;
-            SqlDataReader reader = null;
             int quantidade;
-            bool existe;
 
             List<SqlParameter> parms = new List<SqlParameter>();
             parms.Add(new SqlParameter("@Email", SqlDbType.VarChar, 100));
@@ -585,17 +582,17 @@ namespace BeaHelper.BLL.BD
         /// <param name="objUsuario">Instância a ser manipulada.</param>
         /// <returns>Verdadeiro ou falso informando se a operação foi executada com sucesso.</returns>
         /// <remarks>Jonathan Scrok</remarks>
-        private static bool SetInstance(IDataReader dr, Login_P1 objVaga)
+        private static bool SetInstance(IDataReader dr, Login_P1 objEvento)
         {
             try
             {
                 if (dr.Read())
                 {
-                    objVaga._idLogin = Convert.ToInt32(dr["Id_Login"]);
-                    objVaga._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
-                    objVaga._email = Convert.ToString(dr["Email"]);
-                    objVaga._senha = Convert.ToString(dr["Senha"]);
-                    objVaga._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
+                    objEvento._idLogin = Convert.ToInt32(dr["Id_Login"]);
+                    objEvento._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
+                    objEvento._email = Convert.ToString(dr["Email"]);
+                    objEvento._senha = Convert.ToString(dr["Senha"]);
+                    objEvento._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
 
                     return true;
                 }

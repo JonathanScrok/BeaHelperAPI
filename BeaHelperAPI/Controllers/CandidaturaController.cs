@@ -33,11 +33,11 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idcandidatura > 0)
                 {
-                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(idcandidatura);
+                    bool ExisteCandidatura = EventoCandidaturas_P1.ExisteCandidatura(idcandidatura);
                     if (ExisteCandidatura)
                     {
-                        var vaga = _candidaturaService.CarregaCandidatura(idcandidatura);
-                        return Ok(vaga);
+                        var evento = _candidaturaService.CarregaCandidatura(idcandidatura);
+                        return Ok(evento);
                     }
                     else
                     {
@@ -62,13 +62,13 @@ namespace BeaHelperAPI.Controllers
         /// Busca Candidatura pelo Id_Usuario e id_Evento.
         /// </summary>
         [HttpGet("{idusuario}/{idevento}")]
-        public IActionResult GetCandidaturaIdUsuIdVaga(int idusuario, int idevento)
+        public IActionResult GetCandidaturaIdUsuIdEvento(int idusuario, int idevento)
         {
             try
             {
                 if (idusuario > 0 && idevento > 0)
                 {
-                    var candidatura = VagaCandidaturas_P1.CandidaturasUsuarioVaga(idusuario, idevento);
+                    var candidatura = EventoCandidaturas_P1.CandidaturasUsuarioEvento(idusuario, idevento);
                     if (candidatura.Count > 0)
                     {
                         return Ok(candidatura);
@@ -85,7 +85,7 @@ namespace BeaHelperAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -102,7 +102,7 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idevento > 0)
                 {
-                    var candidatura = VagaCandidaturas_P1.TodasUsuarioCandidatadosVaga(idevento);
+                    var candidatura = EventoCandidaturas_P1.TodasUsuarioCandidatadosEvento(idevento);
 
                     if (candidatura.Count > 0)
                     {
@@ -120,7 +120,7 @@ namespace BeaHelperAPI.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -131,13 +131,13 @@ namespace BeaHelperAPI.Controllers
         /// Insert de Candidatura.
         /// </summary>
         [HttpPost]
-        public IActionResult PostCandidatura(VagaCandidatura candidatura)
+        public IActionResult PostCandidatura(EventoCandidatura candidatura)
         {
             try
             {
                 if (candidatura != null)
                 {
-                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(candidatura.Id_Vaga, candidatura.Id_Usuario);
+                    bool ExisteCandidatura = EventoCandidaturas_P1.ExisteCandidatura(candidatura.Id_Evento, candidatura.Id_Usuario);
 
                     if (!ExisteCandidatura)
                     {
@@ -167,13 +167,13 @@ namespace BeaHelperAPI.Controllers
         /// Update de Candidatura.
         /// </summary>
         [HttpPut]
-        public IActionResult UpdateCandidatura(VagaCandidatura candidatura)
+        public IActionResult UpdateCandidatura(EventoCandidatura candidatura)
         {
             try
             {
                 if (candidatura != null && candidatura.Id_Candidatura > 0)
                 {
-                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(candidatura.Id_Candidatura);
+                    bool ExisteCandidatura = EventoCandidaturas_P1.ExisteCandidatura(candidatura.Id_Candidatura);
 
                     if (ExisteCandidatura)
                     {
@@ -216,13 +216,13 @@ namespace BeaHelperAPI.Controllers
             {
                 if (idcandidatura > 0)
                 {
-                    bool ExisteCandidatura = VagaCandidaturas_P1.ExisteCandidatura(idcandidatura);
+                    bool ExisteCandidatura = EventoCandidaturas_P1.ExisteCandidatura(idcandidatura);
 
                     if (ExisteCandidatura)
                     {
                         try
                         {
-                            VagaCandidaturas_P1.Delete(idcandidatura);
+                            EventoCandidaturas_P1.Delete(idcandidatura);
                             return Ok();
                         }
                         catch (Exception ex)

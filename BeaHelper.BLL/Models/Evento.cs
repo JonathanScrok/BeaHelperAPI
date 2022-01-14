@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BeaHelper.BLL.Models
 {
-    public class Vaga
+    public class Evento
     {
-        public int Id_Vaga { get; set; }
+        public int Id_Evento { get; set; }
         public int Id_Usuario_Adm { get; set; }
         public string Titulo { get; set; }
         public string Categoria { get; set; }

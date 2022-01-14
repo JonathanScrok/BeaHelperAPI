@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BeaHelper.BLL.BD
 {
-    public partial class VagaCandidaturas_P1
+    public partial class EventoCandidaturas_P1
     {
         #region StringConnection
         //private const string stringConnection = "Data Source=mssql-49550-0.cloudclusters.net,11255;Initial Catalog=be_helper;Integrated Security=False;User Id=AdminBeaHelper;Password=B3ah3lper#2021;MultipleActiveResultSets=True";
@@ -20,7 +20,7 @@ namespace BeaHelper.BLL.BD
         #region Atributos
 
         private int _idCandidatura;
-        private int _idVaga;
+        private int _idEvento;
         private int _idUsuario;
         private DateTime _dataCadastro;
 
@@ -46,16 +46,16 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region IdVaga
-        public int IdVaga
+        #region IdEvento
+        public int IdEvento
         {
             get
             {
-                return this._idVaga;
+                return this._idEvento;
             }
             set
             {
-                this._idVaga = value;
+                this._idEvento = value;
                 this._modified = true;
             }
         }
@@ -95,11 +95,11 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Construtores
-        public VagaCandidaturas_P1()
+        public EventoCandidaturas_P1()
         {
             this._persisted = false;
         }
-        public VagaCandidaturas_P1(int IdCandidatura)
+        public EventoCandidaturas_P1(int IdCandidatura)
         {
             this._idCandidatura = IdCandidatura;
             this._persisted = true;
@@ -107,17 +107,17 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Consultas
-        private const string SELECT_TODASCANDIDATURAS = @"select * from helper.VagaCandidaturas";
-        private const string SELECT_BUSCA_CANDIDATURAID = @"select * from helper.VagaCandidaturas where Id_Candidatura = @Id_Candidatura";
-        private const string SELECT_BUSCA_CANDIDATURAID_COUNT = @"select Count(*) from helper.VagaCandidaturas where Id_Candidatura = @Id_Candidatura";
-        private const string SELECT_BUSCA_CANDIDATURA_COUNT = @"select Count(*) from helper.VagaCandidaturas where Id_Vaga = Id_Vaga And Id_Usuario = @Id_Usuario";
-        private const string SELECT_BUSCA_CANDIDATURA_IDUSUARIO = @"select * from helper.VagaCandidaturas where Id_Usuario = @Id_Usuario";
-        private const string SELECT_BUSCA_CANDIDATURA_IDVAGA = @"select * from helper.VagaCandidaturas where Id_Vaga = @Id_Vaga";
-        private const string SELECT_BUSCA_CANDIDATURA_IDVAGA_IDUSUARIO = @"select * from helper.VagaCandidaturas where Id_Vaga = @Id_Vaga AND Id_Usuario = @Id_Usuario";
+        private const string SELECT_TODASCANDIDATURAS = @"select * from helper.EventoCandidaturas";
+        private const string SELECT_BUSCA_CANDIDATURAID = @"select * from helper.EventoCandidaturas where Id_Candidatura = @Id_Candidatura";
+        private const string SELECT_BUSCA_CANDIDATURAID_COUNT = @"select Count(*) from helper.EventoCandidaturas where Id_Candidatura = @Id_Candidatura";
+        private const string SELECT_BUSCA_CANDIDATURA_COUNT = @"select Count(*) from helper.EventoCandidaturas where Id_Evento = Id_Evento And Id_Usuario = @Id_Usuario";
+        private const string SELECT_BUSCA_CANDIDATURA_IDUSUARIO = @"select * from helper.EventoCandidaturas where Id_Usuario = @Id_Usuario";
+        private const string SELECT_BUSCA_CANDIDATURA_IDEVENTO = @"select * from helper.EventoCandidaturas where Id_Evento = @Id_Evento";
+        private const string SELECT_BUSCA_CANDIDATURA_IDEVENTO_IDUSUARIO = @"select * from helper.EventoCandidaturas where Id_Evento = @Id_Evento AND Id_Usuario = @Id_Usuario";
 
-        private const string UPDATE_CANDIDATURA = @"UPDATE helper.VagaCandidaturas SET Id_Vaga = @Id_Vaga, Id_Usuario = @Id_Usuario, DataCadastro = @DataCadastro where Id_Candidatura = @Id_Candidatura";
-        private const string INSERT_CANDIDATURA = @"INSERT INTO helper.VagaCandidaturas(Id_Vaga, Id_Usuario, DataCadastro) VALUES (@Id_Vaga, @Id_Usuario, @DataCadastro)";
-        private const string DELETE_CANDIDATURA = @"DELETE FROM helper.VagaCandidaturas WHERE Id_Candidatura = @Id_Candidatura";
+        private const string UPDATE_CANDIDATURA = @"UPDATE helper.EventoCandidaturas SET Id_Evento = @Id_Evento, Id_Usuario = @Id_Usuario, DataCadastro = @DataCadastro where Id_Candidatura = @Id_Candidatura";
+        private const string INSERT_CANDIDATURA = @"INSERT INTO helper.EventoCandidaturas(Id_Evento, Id_Usuario, DataCadastro) VALUES (@Id_Evento, @Id_Usuario, @DataCadastro)";
+        private const string DELETE_CANDIDATURA = @"DELETE FROM helper.EventoCandidaturas WHERE Id_Candidatura = @Id_Candidatura";
         #endregion
 
         #region Metodos
@@ -128,7 +128,7 @@ namespace BeaHelper.BLL.BD
         {
             List<SqlParameter> parms = new List<SqlParameter>();
             parms.Add(new SqlParameter("@Id_Candidatura", SqlDbType.Int, 4));
-            parms.Add(new SqlParameter("@Id_Vaga", SqlDbType.Int, 4));
+            parms.Add(new SqlParameter("@Id_Evento", SqlDbType.Int, 4));
             parms.Add(new SqlParameter("@Id_Usuario", SqlDbType.Int, 4));
             parms.Add(new SqlParameter("@DataCadastro", SqlDbType.DateTime, 8));
 
@@ -141,7 +141,7 @@ namespace BeaHelper.BLL.BD
         private void SetParameters(List<SqlParameter> parms)
         {
             parms[0].Value = this._idCandidatura;
-            parms[1].Value = this._idVaga;
+            parms[1].Value = this._idEvento;
             parms[2].Value = this._idUsuario;
             parms[3].Value = this._dataCadastro;
 
@@ -149,11 +149,11 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Busca todas as Candidaturas do Banco
-        public static List<VagaCandidatura> TodasCandidaturas()
+        public static List<EventoCandidatura> TodasCandidaturas()
         {
             SqlConnection conn = null;
             SqlDataReader reader = null;
-            List<VagaCandidatura> Candidaturas = new List<VagaCandidatura>();
+            List<EventoCandidatura> Candidaturas = new List<EventoCandidatura>();
 
             try
             {
@@ -162,11 +162,11 @@ namespace BeaHelper.BLL.BD
 
                 SqlCommand cmd = new SqlCommand(SELECT_TODASCANDIDATURAS, conn);
 
-                Mapper.CreateMap<IDataRecord, VagaCandidatura>();
+                Mapper.CreateMap<IDataRecord, EventoCandidatura>();
 
                 using (reader = cmd.ExecuteReader())
                 {
-                    Candidaturas = Mapper.Map<List<VagaCandidatura>>(reader);
+                    Candidaturas = Mapper.Map<List<EventoCandidatura>>(reader);
                     return Candidaturas;
                 }
             }
@@ -187,11 +187,11 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Busca Candidaturas do Usuario
-        public static List<VagaCandidatura> TodasCandidaturasUsuario(int IdUsuario)
+        public static List<EventoCandidatura> TodasCandidaturasUsuario(int IdUsuario)
         {
             SqlConnection conn = null;
             SqlDataReader reader = null;
-            List<VagaCandidatura> CandidaturasUsuario = new List<VagaCandidatura>();
+            List<EventoCandidatura> CandidaturasUsuario = new List<EventoCandidatura>();
            
             try
             {
@@ -206,11 +206,11 @@ namespace BeaHelper.BLL.BD
                 SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_IDUSUARIO, conn);
                 cmd.Parameters.Add(parms[0]);
 
-                Mapper.CreateMap<IDataRecord, VagaCandidatura>();
+                Mapper.CreateMap<IDataRecord, EventoCandidatura>();
 
                 using (reader = cmd.ExecuteReader())
                 {
-                    CandidaturasUsuario = Mapper.Map<List<VagaCandidatura>>(reader);
+                    CandidaturasUsuario = Mapper.Map<List<EventoCandidatura>>(reader);
                     return CandidaturasUsuario;
                 }
             }
@@ -230,34 +230,34 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region Busca Candidaturas do Usuario na Vaga
-        public static List<VagaCandidatura> CandidaturasUsuarioVaga(int IdUsuario, int IdVaga)
+        #region Busca Candidaturas do Usuario na Evento
+        public static List<EventoCandidatura> CandidaturasUsuarioEvento(int IdUsuario, int IdEvento)
         {
             SqlConnection conn = null;
             SqlDataReader reader = null;
-            List<VagaCandidatura> CandidaturasUsuario = new List<VagaCandidatura>();
+            List<EventoCandidatura> CandidaturasUsuario = new List<EventoCandidatura>();
 
             try
             {
                 List<SqlParameter> parms = new List<SqlParameter>();
                 parms.Add(new SqlParameter("@Id_Usuario", SqlDbType.Int, 4));
-                parms.Add(new SqlParameter("@Id_Vaga", SqlDbType.Int, 4));
+                parms.Add(new SqlParameter("@Id_Evento", SqlDbType.Int, 4));
 
                 parms[0].Value = IdUsuario;
-                parms[1].Value = IdVaga;
+                parms[1].Value = IdEvento;
 
                 conn = new SqlConnection(stringConnection);
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_IDVAGA_IDUSUARIO, conn);
+                SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_IDEVENTO_IDUSUARIO, conn);
                 cmd.Parameters.Add(parms[0]);
                 cmd.Parameters.Add(parms[1]);
 
-                Mapper.CreateMap<IDataRecord, VagaCandidatura>();
+                Mapper.CreateMap<IDataRecord, EventoCandidatura>();
 
                 using (reader = cmd.ExecuteReader())
                 {
-                    CandidaturasUsuario = Mapper.Map<List<VagaCandidatura>>(reader);
+                    CandidaturasUsuario = Mapper.Map<List<EventoCandidatura>>(reader);
                     return CandidaturasUsuario;
                 }
             }
@@ -277,31 +277,31 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region Busca todos os usuários Candidatados na vaga
-        public static List<VagaCandidatura> TodasUsuarioCandidatadosVaga(int IdVaga)
+        #region Busca todos os usuários Candidatados na evento
+        public static List<EventoCandidatura> TodasUsuarioCandidatadosEvento(int IdEvento)
         {
             SqlConnection conn = null;
             SqlDataReader reader = null;
-            List<VagaCandidatura> CandidaturasUsuario = new List<VagaCandidatura>();
+            List<EventoCandidatura> CandidaturasUsuario = new List<EventoCandidatura>();
 
             try
             {
                 List<SqlParameter> parms = new List<SqlParameter>();
-                parms.Add(new SqlParameter("@Id_Vaga", SqlDbType.Int, 4));
+                parms.Add(new SqlParameter("@Id_Evento", SqlDbType.Int, 4));
 
-                parms[0].Value = IdVaga;
+                parms[0].Value = IdEvento;
 
                 conn = new SqlConnection(stringConnection);
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_IDVAGA, conn);
+                SqlCommand cmd = new SqlCommand(SELECT_BUSCA_CANDIDATURA_IDEVENTO, conn);
                 cmd.Parameters.Add(parms[0]);
 
-                Mapper.CreateMap<IDataRecord, VagaCandidatura>();
+                Mapper.CreateMap<IDataRecord, EventoCandidatura>();
 
                 using (reader = cmd.ExecuteReader())
                 {
-                    CandidaturasUsuario = Mapper.Map<List<VagaCandidatura>>(reader);
+                    CandidaturasUsuario = Mapper.Map<List<EventoCandidatura>>(reader);
                     return CandidaturasUsuario;
                 }
             }
@@ -345,15 +345,15 @@ namespace BeaHelper.BLL.BD
                 return false;
         }
 
-        public static bool ExisteCandidatura(int idVaga, int idUsuario)
+        public static bool ExisteCandidatura(int idEvento, int idUsuario)
         {
             SqlConnection conn = null;
             int quantidade;
 
             List<SqlParameter> parms = new List<SqlParameter>();
-            parms.Add(new SqlParameter("@Id_Vaga", SqlDbType.Int, 4));
+            parms.Add(new SqlParameter("@Id_Evento", SqlDbType.Int, 4));
             parms.Add(new SqlParameter("@Id_Usuario", SqlDbType.Int, 4));
-            parms[0].Value = idVaga;
+            parms[0].Value = idEvento;
             parms[1].Value = idUsuario;
 
             conn = new SqlConnection(stringConnection);
@@ -654,16 +654,16 @@ namespace BeaHelper.BLL.BD
         /// <param name="objUsuario">Instância a ser manipulada.</param>
         /// <returns>Verdadeiro ou falso informando se a operação foi executada com sucesso.</returns>
         /// <remarks>Jonathan Scrok</remarks>
-        private static bool SetInstance(IDataReader dr, VagaCandidaturas_P1 objVaga)
+        private static bool SetInstance(IDataReader dr, EventoCandidaturas_P1 objEvento)
         {
             try
             {
                 if (dr.Read())
                 {
-                    objVaga._idCandidatura = Convert.ToInt32(dr["Id_Candidatura"]);
-                    objVaga._idVaga = Convert.ToInt32(dr["Id_Vaga"]);
-                    objVaga._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
-                    objVaga._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
+                    objEvento._idCandidatura = Convert.ToInt32(dr["Id_Candidatura"]);
+                    objEvento._idEvento = Convert.ToInt32(dr["Id_Evento"]);
+                    objEvento._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
+                    objEvento._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
 
 
                     return true;

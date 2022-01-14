@@ -484,18 +484,18 @@ namespace BeaHelper.BLL.BD
         /// <param name="objUsuario">Instância a ser manipulada.</param>
         /// <returns>Verdadeiro ou falso informando se a operação foi executada com sucesso.</returns>
         /// <remarks>Jonathan Scrok</remarks>
-        private static bool SetInstance(IDataReader dr, Usuario_P1 objVaga)
+        private static bool SetInstance(IDataReader dr, Usuario_P1 objEvento)
         {
             try
             {
                 if (dr.Read())
                 {
-                    objVaga._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
-                    objVaga._nome = Convert.ToString(dr["Nome"]);
-                    objVaga._sexo = Convert.ToInt32(dr["Sexo"]);
-                    objVaga._email = Convert.ToString(dr["Email"]);
-                    objVaga._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
-                    objVaga._numeroCelular = Convert.ToString(dr["NumeroCelular"]);
+                    objEvento._idUsuario = Convert.ToInt32(dr["Id_Usuario"]);
+                    objEvento._nome = Convert.ToString(dr["Nome"]);
+                    objEvento._sexo = Convert.ToInt32(dr["Sexo"]);
+                    objEvento._email = Convert.ToString(dr["Email"]);
+                    objEvento._dataCadastro = Convert.ToDateTime(dr["DataCadastro"]);
+                    objEvento._numeroCelular = Convert.ToString(dr["NumeroCelular"]);
 
                     return true;
                 }
