@@ -99,6 +99,70 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        [HttpGet("{idevento}/{idusuarioLogado}")]
+        public IActionResult ListaVoluntarios(int idevento, int idusuarioLogado)
+        {
+
+            List<VagaCandidatura> ListaUsuariosVoluntariados = VagaCandidaturas_P1.TodasUsuarioCandidatadosVaga(idevento);
+
+            List<UsuarioCompleto> voluntariosCompleto = new List<UsuarioCompleto>();
+            List<int> IdfVoluntarios = new List<int>();
+
+            //Lista todos ID dos usuários candidatados
+            for (int i = 0; i < ListaUsuariosVoluntariados.Count; i++)
+            {
+                var idf = ListaUsuariosVoluntariados[i].Id_Usuario;
+                IdfVoluntarios.Add(idf);
+            }
+
+            foreach (var IdUsu in IdfVoluntarios)
+            {
+                UsuarioCompleto UsuarioCompleto = new UsuarioCompleto();
+
+                Usuario_P1 Usuario = new Usuario_P1(IdUsu);
+                Usuario.CompleteObject();
+
+                var JaAvaliado = Avaliacao_P1.BuscaIdUsuario_AvaliouEAvaliado(IdUsu, idusuarioLogado);
+
+                var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(IdUsu);
+                UsuarioCompleto.Id_Usuario = Usuario.IdUsuario;
+                UsuarioCompleto.Email = Usuario.Email;
+                UsuarioCompleto.Nome = Usuario.Nome;
+                UsuarioCompleto.Sexo = Usuario.Sexo;
+
+                if (JaAvaliado.Count > 0)
+                {
+                    UsuarioCompleto.UsuarioLogadoAvaliou = true;
+                }
+                else
+                {
+                    UsuarioCompleto.UsuarioLogadoAvaliou = false;
+                }
+
+                if (Avaliacao.Count > 0)
+                {
+                    double NotaSomadas = 0;
+                    for (int i = 0; i < Avaliacao.Count; i++)
+                    {
+                        NotaSomadas += Avaliacao[i].Nota;
+                    }
+                    var media = NotaSomadas / Avaliacao.Count;
+                    media = Math.Round(media, 1);
+                    UsuarioCompleto.NotaMedia = media;
+                    UsuarioCompleto.NuncaAvaliado = false;
+                }
+                else
+                {
+                    UsuarioCompleto.NuncaAvaliado = true;
+                }
+
+                voluntariosCompleto.Add(UsuarioCompleto);
+            }
+
+            return Ok(voluntariosCompleto);
+
+        }
+
         #region Get Todos eventos
         /// <summary>
         /// Busca todos eventos.
