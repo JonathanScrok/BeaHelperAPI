@@ -13,8 +13,10 @@ namespace BeaHelper.BLL.Models
         public string Email { get; set; }
         public string NumeroCelular { get; set; }
         public double NotaMedia { get; set; }
+        public string Senha { get; set; }
         public bool NuncaAvaliado { get; set; }
         public bool UsuarioLogadoAvaliou { get; set; }
+        public DateTime DataCadastro { get; set; }
 
 
     }

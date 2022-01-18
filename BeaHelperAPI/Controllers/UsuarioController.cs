@@ -66,6 +66,44 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region NovoUsuario
+        /// <summary>
+        /// Cadastro de novo Usuario.
+        /// </summary>
+        [HttpPost("cadastrar")]
+        public IActionResult NovoUsuario(UsuarioCompleto login)
+        {
+            try
+            {
+                if (login != null)
+                {
+                    bool ExisteEmail = Login_P1.BuscaLogin_Email(login.Email);
+
+                    if (!ExisteEmail)
+                    {
+                        string senhaEncoding = _encodeSenha.HashValue(login.Senha);
+                        login.Senha = senhaEncoding;
+                        _usuarioService.CadastrarUsuarioCompleto(login);
+                        return Ok("Success");
+                    }
+                    else
+                    {
+                        return StatusCode((int)HttpStatusCode.Forbidden, "Email já cadastrado.");
+                    }
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception)
+            {
+                return NotFound();
+                throw;
+            }
+        }
+        #endregion
+
         #region PostUsuario
         /// <summary>
         /// Insert de Usuário.

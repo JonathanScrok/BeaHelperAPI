@@ -41,6 +41,11 @@ namespace BeaHelper.BLL.BD
             this._idUsuario = idUsuario;
             this._persisted = true;
         }
+        public Usuario_P1(string email)
+        {
+            this._email = email;
+            this._persisted = true;
+        }
         #endregion
 
         #region Propriedades
@@ -371,9 +376,9 @@ namespace BeaHelper.BLL.BD
             }
         }
 
-        public bool CompleteObject(string email)
+        public bool CompleteObjectEmail()
         {
-            using (IDataReader dr = LoadDataReader(email))
+            using (IDataReader dr = LoadDataReader(this._email))
             {
                 return SetInstance(dr, this);
             }

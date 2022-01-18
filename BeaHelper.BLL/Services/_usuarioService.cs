@@ -22,6 +22,28 @@ namespace BeaHelper.BLL.Services
             Usuario.Save();
         }
 
+        public static void CadastrarUsuarioCompleto(UsuarioCompleto UsuarioDados)
+        {
+            Usuario_P1 Usuario = new Usuario_P1();
+
+            Usuario.Nome = UsuarioDados.Nome;
+            Usuario.Email = UsuarioDados.Email;
+            Usuario.NumeroCelular = UsuarioDados.NumeroCelular;
+            Usuario.Sexo = UsuarioDados.Sexo;
+            Usuario.DataCadastro = DateTime.Now;
+            Usuario.Save();
+
+            var UsuarioCadastrado = CarregaUsuario(UsuarioDados.Email);
+
+            Login_P1 login = new Login_P1();
+
+            login.IdUsuario = UsuarioCadastrado.IdUsuario;
+            login.Email = UsuarioDados.Email;
+            login.Senha = UsuarioDados.Senha;
+            login.DataCadastro = DateTime.Now;
+            login.Save();
+        }
+
         public static void AtualizarUsuarioBanco(Usuario UsuarioDados)
         {
             Usuario_P1 Usuario = new Usuario_P1(UsuarioDados.Id_Usuario);
@@ -40,6 +62,14 @@ namespace BeaHelper.BLL.Services
             Usuario.CompleteObject();
 
             return Usuario;
+        }
+
+        public static Usuario_P1 CarregaUsuario(string email)
+        {
+            Usuario_P1 usuario = new Usuario_P1(email);
+            usuario.CompleteObjectEmail();
+
+            return usuario;
         }
     }
 }
