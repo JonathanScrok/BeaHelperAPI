@@ -58,6 +58,33 @@ namespace SyrusVoluntariado.Controllers
             //arquivo = "wwwroot/qrr/arquivo-1254.qrr";
             ValidaArquivo.DeletaArquivo(arquivo);
         }
+
+
+        [HttpGet("/ToBase64/{caminho}")]
+        public IActionResult ToBase64(string caminho)
+        {
+            try
+            {
+                using (Image image = Image.FromFile(caminho))
+                {
+                    using (MemoryStream m = new MemoryStream())
+                    {
+                        image.Save(m, image.RawFormat);
+                        byte[] imageBytes = m.ToArray();
+
+                        // Convert byte[] to Base64 String
+                        string base64String = Convert.ToBase64String(imageBytes);
+                        return Ok(base64String);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro: " + ex.Message);
+                return BadRequest(ex);
+            }
+        }
+
         #endregion
 
     }
