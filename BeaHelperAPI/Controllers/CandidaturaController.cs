@@ -57,6 +57,61 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region Get Candidaturas do Usuario por IdUsuario
+        /// <summary>
+        /// Busca Eventos Voluntariados do Usuário por IdUsuario.
+        /// </summary>
+        [HttpGet("/eventosvoluntariados/{IdUsuario}")]
+        public IActionResult GetEventosVoluntariadosUsuario(int IdUsuario)
+        {
+            try
+            {
+                if (IdUsuario > 0)
+                {
+                    var listEventos = CarregaEventosCandidatados(IdUsuario);
+
+                    if (listEventos.Count > 0)
+                        return Ok(listEventos);
+                    else
+                        return NotFound("Nenhum evento voluntariado!");
+                }
+                else
+                {
+                    return BadRequest("Necessário IdUsuario maior que 0(zero)");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        private List<Evento_P1> CarregaEventosCandidatados(int IdUsuarioLogado)
+        {
+            List<EventoCandidatura> EventosCandidatados = EventoCandidaturas_P1.TodasCandidaturasUsuario(IdUsuarioLogado);
+
+            List<Evento_P1> MinhasCandidaturas = new List<Evento_P1>();
+            List<int> Idfvagas = new List<int>();
+
+            for (int i = 0; i < EventosCandidatados.Count; i++)
+            {
+                var idf = EventosCandidatados[i].Id_Evento;
+                Idfvagas.Add(idf);
+            }
+
+            foreach (var Id in Idfvagas)
+            {
+                Evento_P1 evento = new Evento_P1(Id);
+                evento.CompleteObject();
+                MinhasCandidaturas.Add(evento);
+            }
+
+            return MinhasCandidaturas;
+        }
+
+        #endregion
+
         #region Get Candidatura por Id_Usuario e Id_Evento
         /// <summary>
         /// Busca Candidatura pelo Id_Usuario e id_Evento.
