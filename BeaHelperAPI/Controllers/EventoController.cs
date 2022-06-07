@@ -57,6 +57,28 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region Get Evento por Filtro
+        /// <summary>
+        /// Busca evento por filtros
+        /// </summary>
+        [HttpGet("/evento/filtrarevento")]
+        public IActionResult GetEventoFiltrado(string Titulo, string Descricao, string Categoria, string Local)
+        {
+            try
+            {
+                List<Evento> eventos = new List<Evento>();
+                eventos = Evento_P2.FiltrarEventos(Titulo, Descricao, Categoria, Local);
+
+                return Ok(eventos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+        #endregion
+
         #region GET existe/{idevento}
         /// <summary>
         /// (bool) Busca se o Evento existe por Id_Evento.

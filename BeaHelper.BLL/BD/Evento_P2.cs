@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BeaHelper.BLL.BD
 {
-    public class Evento_P2
+    public partial class Evento_P2
     {
 
         #region StringConnection
@@ -201,6 +201,7 @@ namespace BeaHelper.BLL.BD
         private const string SELECT_MINHASEVENTOS = @"select * from helper.Eventos WHERE Id_Usuario_Adm = @Id_Usuario_Adm";
         private const string SELECT_TITULOS = @"select Count(*) from helper.Eventos WHERE Titulo = @Titulo";
         private const string SELECT_BUSCAEVENTOID_COUNT = @"select Count(*) from helper.Eventos where Id_Evento = @Id_Evento";
+        private const string SELECT_FILTROEVENTOS = @"select * from helper.Eventos WHERE Titulo like @Titulo and Descricao like @Descricao and Categoria like @Categoria and Cidade_Estado like @Cidade_Estado";
         #endregion
 
         #region Metodos
@@ -330,6 +331,44 @@ namespace BeaHelper.BLL.BD
                 return true;
             else
                 return false;
+        }
+        #endregion
+
+        #region FiltrarEventos por ID
+        public static List<Evento> FiltrarEventos(string Titulo = null, string Descricao = null, string Categoria = null, string Local = null)
+        {
+            SqlConnection conn = null;
+            SqlDataReader reader = null;
+            List<Evento> eventos = new List<Evento>();
+
+            List<SqlParameter> parms = new List<SqlParameter>();
+            parms.Add(new SqlParameter("@Titulo", SqlDbType.VarChar, 150));
+            parms.Add(new SqlParameter("@Descricao", SqlDbType.VarChar, 250));
+            parms.Add(new SqlParameter("@Categoria", SqlDbType.VarChar, 100));
+            parms.Add(new SqlParameter("@Cidade_Estado", SqlDbType.VarChar, 50));
+
+            conn = new SqlConnection(stringConnection);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand(SELECT_FILTROEVENTOS, conn);
+
+            foreach (var parametro in parms)
+            {
+                cmd.Parameters.Add(parametro);
+            }
+
+            cmd.Parameters["@Titulo"].Value = "%" + Titulo + "%";
+            cmd.Parameters["@Descricao"].Value = "%" + Descricao + "%";
+            cmd.Parameters["@Categoria"].Value = "%" + Categoria + "%";
+            cmd.Parameters["@Cidade_Estado"].Value = "%" + Local + "%";
+
+            Mapper.CreateMap<IDataRecord, Evento>();
+            using (reader = cmd.ExecuteReader())
+            {
+                eventos = Mapper.Map<List<Evento>>(reader);
+                return eventos;
+            }
+
         }
         #endregion
 
