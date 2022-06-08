@@ -147,6 +147,40 @@ namespace BeaHelperAPI.Controllers
         }
         #endregion
 
+        #region GET alterarsenha/{email}/{senha}
+        /// <summary>
+        /// Busca LoginCompleto por email e senha.
+        /// </summary>
+        [HttpGet("alterarsenha/{email}/{senha}/{novasenha}")]
+        public IActionResult AlterarSenha(string email, string senha, string novasenha)
+        {
+            try
+            {
+                string senhaEncoding = _encodeSenha.HashValue(senha);
+                var model = Login_P1.BuscaLogin_EmailSenha(email, senhaEncoding);
+
+                if (model.Count > 0)
+                {
+                    Login login = new Login();
+                    senhaEncoding = _encodeSenha.HashValue(novasenha);
+                    model[0].Senha = senhaEncoding;
+                    _loginService.AtualizarLoginBanco(model[0]);
+                    return Ok("Senha alterada com sucesso!");
+                }
+                else
+                {
+                    return NotFound("Email ou senha incorretos!");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
+        #endregion
+
         #region PostLogin
         /// <summary>
         /// Insert de Login.
