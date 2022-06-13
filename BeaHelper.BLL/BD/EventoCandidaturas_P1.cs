@@ -60,8 +60,8 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region IdUsuario
-        public int IdUsuario
+        #region Id_Usuario
+        public int Id_Usuario
         {
             get
             {

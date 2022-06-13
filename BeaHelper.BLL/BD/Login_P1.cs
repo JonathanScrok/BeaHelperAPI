@@ -31,8 +31,8 @@ namespace BeaHelper.BLL.BD
 
         #region Propriedades
 
-        #region IdLogin
-        public int IdLogin
+        #region Id_Login
+        public int Id_Login
         {
             get
             {
@@ -46,8 +46,8 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region IdUsuario
-        public int IdUsuario
+        #region Id_Usuario
+        public int Id_Usuario
         {
             get
             {

@@ -51,8 +51,8 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region IdUsuarioAdm
-        public int IdUsuarioAdm
+        #region Id_Usuario_Adm
+        public int Id_Usuario_Adm
         {
             get
             {
@@ -114,9 +114,9 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region CidadeEstado
+        #region Cidade_Estado
 
-        public string CidadeEstado
+        public string Cidade_Estado
         {
             get
             {

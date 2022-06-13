@@ -14,7 +14,7 @@ namespace BeaHelper.BLL.Services
         {
             Login_P1 login = new Login_P1();
 
-            login.IdUsuario = loginDados.Id_Usuario;
+            login.Id_Usuario = loginDados.Id_Usuario;
             login.Email = loginDados.Email;
             login.Senha = loginDados.Senha;
             login.DataCadastro = DateTime.Now;
@@ -25,8 +25,8 @@ namespace BeaHelper.BLL.Services
         {
             Login_P1 login = new Login_P1(loginDados.Id_Login);
 
-            login.IdLogin = loginDados.Id_Login;
-            login.IdUsuario = loginDados.Id_Usuario;
+            login.Id_Login = loginDados.Id_Login;
+            login.Id_Usuario = loginDados.Id_Usuario;
             login.Email = loginDados.Email;
             login.Senha = loginDados.Senha;
             login.DataCadastro = loginDados.DataCadastro;

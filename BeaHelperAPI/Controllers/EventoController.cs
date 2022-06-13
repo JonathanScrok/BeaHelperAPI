@@ -151,7 +151,7 @@ namespace BeaHelperAPI.Controllers
                 var JaAvaliado = Avaliacao_P1.BuscaIdUsuario_AvaliouEAvaliado(IdUsu, idusuarioLogado);
 
                 var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(IdUsu);
-                UsuarioCompleto.Id_Usuario = Usuario.IdUsuario;
+                UsuarioCompleto.Id_Usuario = Usuario.Id_Usuario;
                 UsuarioCompleto.Email = Usuario.Email;
                 UsuarioCompleto.Nome = Usuario.Nome;
                 UsuarioCompleto.Sexo = Usuario.Sexo;

@@ -90,7 +90,7 @@ namespace BeaHelperAPI.Controllers
 
                     var usuarioCompleto = Mapper.Map<UsuarioCompleto>(usuario);
 
-                    var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(usuario.IdUsuario);
+                    var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(usuario.Id_Usuario);
 
                     if (Avaliacao.Count > 0)
                     {

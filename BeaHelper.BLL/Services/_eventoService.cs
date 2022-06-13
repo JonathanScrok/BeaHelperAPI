@@ -16,11 +16,11 @@ namespace BeaHelper.BLL.Services
 
             eventoCadastrar.DataPublicacao = DateTime.Now;
             eventoCadastrar.DataEvento = eventoDados.DataEvento;
-            eventoCadastrar.IdUsuarioAdm = eventoDados.Id_Usuario_Adm;
+            eventoCadastrar.Id_Usuario_Adm = eventoDados.Id_Usuario_Adm;
             eventoCadastrar.Titulo = eventoDados.Titulo;
             eventoCadastrar.Categoria = eventoDados.Categoria;
             eventoCadastrar.Descricao = eventoDados.Descricao;
-            eventoCadastrar.CidadeEstado = eventoDados.Cidade_Estado;
+            eventoCadastrar.Cidade_Estado = eventoDados.Cidade_Estado;
             eventoCadastrar.SemData = eventoDados.SemData;
             eventoCadastrar.EventoRecorrente = eventoDados.EventoRecorrente;
             eventoCadastrar.Save();
@@ -31,11 +31,11 @@ namespace BeaHelper.BLL.Services
             Evento_P1 eventoAtualizar = new Evento_P1(eventoDados.Id_Evento);
 
             eventoAtualizar.IdEvento = eventoDados.Id_Evento;
-            eventoAtualizar.IdUsuarioAdm = eventoDados.Id_Usuario_Adm;
+            eventoAtualizar.Id_Usuario_Adm = eventoDados.Id_Usuario_Adm;
             eventoAtualizar.Titulo = eventoDados.Titulo;
             eventoAtualizar.Categoria = eventoDados.Categoria;
             eventoAtualizar.Descricao = eventoDados.Descricao;
-            eventoAtualizar.CidadeEstado = eventoDados.Cidade_Estado;
+            eventoAtualizar.Cidade_Estado = eventoDados.Cidade_Estado;
             eventoAtualizar.DataPublicacao = eventoDados.DataPublicacao;
             eventoAtualizar.DataEvento = eventoDados.DataEvento;
             eventoAtualizar.SemData = eventoDados.SemData;

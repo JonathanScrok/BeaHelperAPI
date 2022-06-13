@@ -14,7 +14,7 @@ namespace BeaHelper.BLL.Services
         {
             EventoCandidaturas_P1 candidatura = new EventoCandidaturas_P1();
 
-            candidatura.IdUsuario = candidaturaDados.Id_Usuario;
+            candidatura.Id_Usuario = candidaturaDados.Id_Usuario;
             candidatura.IdEvento = candidaturaDados.Id_Evento;
             candidatura.DataCadastro = DateTime.Now;
             candidatura.Save();
@@ -25,7 +25,7 @@ namespace BeaHelper.BLL.Services
             EventoCandidaturas_P1 candidatura = new EventoCandidaturas_P1(eventoCandidatura.Id_Candidatura);
 
             candidatura.IdCandidatura = eventoCandidatura.Id_Candidatura;
-            candidatura.IdUsuario = eventoCandidatura.Id_Usuario;
+            candidatura.Id_Usuario = eventoCandidatura.Id_Usuario;
             candidatura.IdEvento = eventoCandidatura.Id_Evento;
             candidatura.DataCadastro = eventoCandidatura.DataCadastro;
             candidatura.Save();

@@ -37,7 +37,7 @@ namespace BeaHelper.BLL.Services
 
             Login_P1 login = new Login_P1();
 
-            login.IdUsuario = UsuarioCadastrado.IdUsuario;
+            login.Id_Usuario = UsuarioCadastrado.Id_Usuario;
             login.Email = UsuarioDados.Email;
             login.Senha = UsuarioDados.Senha;
             login.DataCadastro = DateTime.Now;

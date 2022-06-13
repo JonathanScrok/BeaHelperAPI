@@ -49,8 +49,8 @@ namespace BeaHelper.BLL.BD
 
         #region Propriedades
 
-        #region IdUsuario
-        public int IdUsuario
+        #region Id_Usuario
+        public int Id_Usuario
         {
             get
             {
