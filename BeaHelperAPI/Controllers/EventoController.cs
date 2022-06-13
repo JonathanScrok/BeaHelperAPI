@@ -195,12 +195,27 @@ namespace BeaHelperAPI.Controllers
         /// <summary>
         /// Busca todos eventos.
         /// </summary>
-        [HttpGet("todos-eventos")]
-        public IActionResult GetTodosEventos()
+        [HttpGet("todos-eventos/{idusuariologado}")]
+        public IActionResult GetTodosEventos(int idusuariologado)
         {
             try
             {
                 List<Evento> eventos = Evento_P2.TodasEventos();
+                if (idusuariologado > 0)
+                {
+                    foreach (var evento in eventos)
+                    {
+                        if (evento.Id_Evento > 0)
+                        {
+                            var candidatura = EventoCandidaturas_P1.CandidaturasUsuarioEvento(idusuariologado, evento.Id_Evento);
+                            if (candidatura.Count > 0)
+                            {
+                                evento.UsuarioLogadoVoluntariado = true;
+                            }
+                        }
+                    }
+                }
+
                 return Ok(eventos);
             }
             catch (Exception ex)
