@@ -30,7 +30,7 @@ namespace BeaHelper.BLL.Services
         {
             Evento_P1 eventoAtualizar = new Evento_P1(eventoDados.Id_Evento);
 
-            eventoAtualizar.IdEvento = eventoDados.Id_Evento;
+            eventoAtualizar.Id_Evento = eventoDados.Id_Evento;
             eventoAtualizar.Id_Usuario_Adm = eventoDados.Id_Usuario_Adm;
             eventoAtualizar.Titulo = eventoDados.Titulo;
             eventoAtualizar.Categoria = eventoDados.Categoria;

@@ -37,8 +37,8 @@ namespace BeaHelper.BLL.BD
 
         #region Propriedades
 
-        #region IdEvento
-        public int IdEvento
+        #region Id_Evento
+        public int Id_Evento
         {
             get
             {

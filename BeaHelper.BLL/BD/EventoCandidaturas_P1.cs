@@ -45,8 +45,8 @@ namespace BeaHelper.BLL.BD
         }
         #endregion
 
-        #region IdEvento
-        public int IdEvento
+        #region Id_Evento
+        public int Id_Evento
         {
             get
             {
