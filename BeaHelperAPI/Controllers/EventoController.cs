@@ -155,6 +155,7 @@ namespace BeaHelperAPI.Controllers
                 UsuarioCompleto.Email = Usuario.Email;
                 UsuarioCompleto.Nome = Usuario.Nome;
                 UsuarioCompleto.Sexo = Usuario.Sexo;
+                UsuarioCompleto.NumeroCelular = Usuario.NumeroCelular;
 
                 if (JaAvaliado.Count > 0)
                 {

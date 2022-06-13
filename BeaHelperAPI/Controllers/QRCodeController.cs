@@ -10,11 +10,11 @@ using QRCoder;
 
 namespace SyrusVoluntariado.Controllers
 {
-    public class QRCodeController : Controller
+    public class QRCodeController : ControllerBase
     {
         #region Gera QrCode em Bytes
         /// <summary>
-        /// Busca de Candidatura por Id_Candidatura.
+        /// Gera QrCode.
         /// </summary>
         [HttpGet("{qrTexto}")]
         public IActionResult Index(string qrTexto)
@@ -33,7 +33,7 @@ namespace SyrusVoluntariado.Controllers
                 //DeleteArquivo("wwwroot/qrcode/arquivo-" + nomearquivo + ".qrr");
                 QRCode qrCode = new QRCode(qrCodeData1);
                 Bitmap qrCodeImage = qrCode.GetGraphic(20);
-                ViewBag.QrCodeByte = BitmapToBytes(qrCodeImage);
+                //ViewBag.QrCodeByte = BitmapToBytes(qrCodeImage);
                 return Ok(BitmapToBytes(qrCodeImage));
             }
             catch (Exception ex)
