@@ -130,64 +130,70 @@ namespace BeaHelperAPI.Controllers
         {
 
             List<EventoCandidatura> ListaUsuariosVoluntariados = EventoCandidaturas_P1.TodasUsuarioCandidatadosEvento(idevento);
-
-            List<UsuarioCompleto> voluntariosCompleto = new List<UsuarioCompleto>();
-            List<int> IdfVoluntarios = new List<int>();
-
-            //Lista todos ID dos usuários candidatados
-            for (int i = 0; i < ListaUsuariosVoluntariados.Count; i++)
+            if (ListaUsuariosVoluntariados.Count > 0)
             {
-                var idf = ListaUsuariosVoluntariados[i].Id_Usuario;
-                IdfVoluntarios.Add(idf);
-            }
 
-            foreach (var IdUsu in IdfVoluntarios)
-            {
-                UsuarioCompleto UsuarioCompleto = new UsuarioCompleto();
 
-                Usuario_P1 Usuario = new Usuario_P1(IdUsu);
-                Usuario.CompleteObject();
+                List<UsuarioCompleto> voluntariosCompleto = new List<UsuarioCompleto>();
+                List<int> IdfVoluntarios = new List<int>();
 
-                var JaAvaliado = Avaliacao_P1.BuscaIdUsuario_AvaliouEAvaliado(IdUsu, idusuarioLogado);
-
-                var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(IdUsu);
-                UsuarioCompleto.Id_Usuario = Usuario.Id_Usuario;
-                UsuarioCompleto.Email = Usuario.Email;
-                UsuarioCompleto.Nome = Usuario.Nome;
-                UsuarioCompleto.Sexo = Usuario.Sexo;
-                UsuarioCompleto.NumeroCelular = Usuario.NumeroCelular;
-
-                if (JaAvaliado.Count > 0)
+                //Lista todos ID dos usuários candidatados
+                for (int i = 0; i < ListaUsuariosVoluntariados.Count; i++)
                 {
-                    UsuarioCompleto.UsuarioLogadoAvaliou = true;
-                }
-                else
-                {
-                    UsuarioCompleto.UsuarioLogadoAvaliou = false;
+                    var idf = ListaUsuariosVoluntariados[i].Id_Usuario;
+                    IdfVoluntarios.Add(idf);
                 }
 
-                if (Avaliacao.Count > 0)
+                foreach (var IdUsu in IdfVoluntarios)
                 {
-                    double NotaSomadas = 0;
-                    for (int i = 0; i < Avaliacao.Count; i++)
+                    UsuarioCompleto UsuarioCompleto = new UsuarioCompleto();
+
+                    Usuario_P1 Usuario = new Usuario_P1(IdUsu);
+                    Usuario.CompleteObject();
+
+                    var JaAvaliado = Avaliacao_P1.BuscaIdUsuario_AvaliouEAvaliado(IdUsu, idusuarioLogado);
+
+                    var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(IdUsu);
+                    UsuarioCompleto.Id_Usuario = Usuario.Id_Usuario;
+                    UsuarioCompleto.Email = Usuario.Email;
+                    UsuarioCompleto.Nome = Usuario.Nome;
+                    UsuarioCompleto.Sexo = Usuario.Sexo;
+                    UsuarioCompleto.NumeroCelular = Usuario.NumeroCelular;
+
+                    if (JaAvaliado.Count > 0)
                     {
-                        NotaSomadas += Avaliacao[i].Nota;
+                        UsuarioCompleto.UsuarioLogadoAvaliou = true;
                     }
-                    var media = NotaSomadas / Avaliacao.Count;
-                    media = Math.Round(media, 1);
-                    UsuarioCompleto.NotaMedia = media;
-                    UsuarioCompleto.NuncaAvaliado = false;
-                }
-                else
-                {
-                    UsuarioCompleto.NuncaAvaliado = true;
-                }
+                    else
+                    {
+                        UsuarioCompleto.UsuarioLogadoAvaliou = false;
+                    }
 
-                voluntariosCompleto.Add(UsuarioCompleto);
+                    if (Avaliacao.Count > 0)
+                    {
+                        double NotaSomadas = 0;
+                        for (int i = 0; i < Avaliacao.Count; i++)
+                        {
+                            NotaSomadas += Avaliacao[i].Nota;
+                        }
+                        var media = NotaSomadas / Avaliacao.Count;
+                        media = Math.Round(media, 1);
+                        UsuarioCompleto.NotaMedia = media;
+                        UsuarioCompleto.NuncaAvaliado = false;
+                    }
+                    else
+                    {
+                        UsuarioCompleto.NuncaAvaliado = true;
+                    }
+
+                    voluntariosCompleto.Add(UsuarioCompleto);
+                }
+                return Ok(voluntariosCompleto);
             }
-
-            return Ok(voluntariosCompleto);
-
+            else
+            {
+                return NotFound("Nenhum Voluntário voluntariado!");
+            }
         }
         #endregion
 
