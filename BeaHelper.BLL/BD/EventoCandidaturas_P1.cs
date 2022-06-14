@@ -109,7 +109,7 @@ namespace BeaHelper.BLL.BD
         private const string SELECT_TODASCANDIDATURAS = @"select * from helper.EventoCandidaturas";
         private const string SELECT_BUSCA_CANDIDATURAID = @"select * from helper.EventoCandidaturas where Id_Candidatura = @Id_Candidatura";
         private const string SELECT_BUSCA_CANDIDATURAID_COUNT = @"select Count(*) from helper.EventoCandidaturas where Id_Candidatura = @Id_Candidatura";
-        private const string SELECT_BUSCA_CANDIDATURA_COUNT = @"select Count(*) from helper.EventoCandidaturas where Id_Evento = Id_Evento And Id_Usuario = @Id_Usuario";
+        private const string SELECT_BUSCA_CANDIDATURA_COUNT = @"select Count(*) from helper.EventoCandidaturas where Id_Evento = @Id_Evento And Id_Usuario = @Id_Usuario";
         private const string SELECT_BUSCA_CANDIDATURA_IDUSUARIO = @"select * from helper.EventoCandidaturas where Id_Usuario = @Id_Usuario";
         private const string SELECT_BUSCA_CANDIDATURA_IDEVENTO = @"select * from helper.EventoCandidaturas where Id_Evento = @Id_Evento";
         private const string SELECT_BUSCA_CANDIDATURA_IDEVENTO_IDUSUARIO = @"select * from helper.EventoCandidaturas where Id_Evento = @Id_Evento AND Id_Usuario = @Id_Usuario";
