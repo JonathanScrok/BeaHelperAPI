@@ -57,13 +57,13 @@ namespace BeaHelperAPI.Controllers
             }
         }
 
-        [HttpPost("postconvidar")]
-        public IActionResult PostConvidar(int IdUsuarioNotificou, int IdUsuarioNotificado, int IdEvento)
+        [HttpPost("postnotificacao/{IdUsuarioNotificou}/{IdUsuarioNotificado}/{IdEvento}/{Mensagem}")]
+        public IActionResult PostNotificacao(int IdUsuarioNotificou, int IdUsuarioNotificado, int IdEvento, string Mensagem)
         {
             Notificacao_P1 notificacao = new Notificacao_P1();
             notificacao.IdUsuarioNotificado = IdUsuarioNotificado;
             notificacao.IdUsuarioNotificou = IdUsuarioNotificou;
-            notificacao.Descricao = "Alguém te convidou para participar de um evento! Clique aqui e saiba mais!";
+            notificacao.Descricao = Mensagem;
             notificacao.NotificacaoAtiva = true;
             notificacao.UrlNotificacao = "https://localhost:44394/evento/visualizar/" + IdEvento;
             notificacao.DataCadastro = DateTime.Now;

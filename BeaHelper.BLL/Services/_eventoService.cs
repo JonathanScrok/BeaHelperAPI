@@ -22,6 +22,7 @@ namespace BeaHelper.BLL.Services
             eventoCadastrar.Descricao = eventoDados.Descricao;
             eventoCadastrar.Cidade_Estado = eventoDados.Cidade_Estado;
             eventoCadastrar.SemData = eventoDados.SemData;
+            eventoCadastrar.Privado = eventoDados.Privado;
             eventoCadastrar.EventoRecorrente = eventoDados.EventoRecorrente;
             eventoCadastrar.Save();
         }
@@ -39,6 +40,7 @@ namespace BeaHelper.BLL.Services
             eventoAtualizar.DataPublicacao = eventoDados.DataPublicacao;
             eventoAtualizar.DataEvento = eventoDados.DataEvento;
             eventoAtualizar.SemData = eventoDados.SemData;
+            eventoAtualizar.Privado = eventoDados.Privado;
             eventoAtualizar.EventoRecorrente = eventoDados.EventoRecorrente;
             eventoAtualizar.Save();
         }
