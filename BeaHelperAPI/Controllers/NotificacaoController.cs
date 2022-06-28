@@ -57,7 +57,7 @@ namespace BeaHelperAPI.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("postconvidar")]
         public IActionResult PostConvidar(int IdUsuarioNotificou, int IdUsuarioNotificado, int IdEvento)
         {
             Notificacao_P1 notificacao = new Notificacao_P1();
