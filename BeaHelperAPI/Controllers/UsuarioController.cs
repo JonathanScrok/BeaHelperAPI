@@ -27,11 +27,21 @@ namespace BeaHelperAPI.Controllers
         /// Busca todos os usuários.
         /// </summary>
         [HttpGet("todos-usuarios")]
-        public IActionResult GetTodosUsuarios()
+        public IActionResult GetTodosUsuarios(int? IdUsuario = null)
         {
             try
             {
-                List<Usuario> usuarios = Usuario_P2.TodosUsuarios();
+                List<Usuario> usuarios = Usuario_P2.TodosUsuarios(IdUsuario);
+
+                foreach (var usu in usuarios)
+                {
+                    var notificacoes = Notificacao_P1.BuscaIdUsuario_NotificouENotificado(usu.Id_Usuario, (int)IdUsuario);
+                    if (notificacoes.Count > 0)
+                        usu.JaConvidado = true;
+                    else
+                        usu.JaConvidado = false;
+                }
+
                 return Ok(usuarios);
             }
             catch (Exception ex)
