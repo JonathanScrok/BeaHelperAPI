@@ -60,16 +60,33 @@ namespace BeaHelperAPI.Controllers
         [HttpPost("postnotificacao/{IdUsuarioNotificou}/{IdUsuarioNotificado}/{IdEvento}/{Mensagem}")]
         public IActionResult PostNotificacao(int IdUsuarioNotificou, int IdUsuarioNotificado, int IdEvento, string Mensagem)
         {
-            Notificacao_P1 notificacao = new Notificacao_P1();
-            notificacao.IdUsuarioNotificado = IdUsuarioNotificado;
-            notificacao.IdUsuarioNotificou = IdUsuarioNotificou;
-            notificacao.Descricao = Mensagem;
-            notificacao.NotificacaoAtiva = true;
-            notificacao.UrlNotificacao = "https://localhost:44394/evento/visualizar/" + IdEvento;
-            notificacao.DataCadastro = DateTime.Now;
-            notificacao.Save();
+            try
+            {
+                Notificacao_P1 notificacao = new Notificacao_P1();
+                notificacao.IdUsuarioNotificado = IdUsuarioNotificado;
+                notificacao.IdUsuarioNotificou = IdUsuarioNotificou;
+                notificacao.Descricao = Mensagem;
+                notificacao.NotificacaoAtiva = true;
+                notificacao.UrlNotificacao = "https://localhost:44394/evento/visualizar/" + IdEvento;
+                notificacao.DataCadastro = DateTime.Now;
+                notificacao.Save();
 
-            return RedirectToAction("Index", "Voluntario");
+                return Ok(notificacao);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+                throw;
+            }
+        }
+
+        [HttpGet("quantidade-notificacao/{idUsuario}")]
+        public int QtdNotificacao(int idUsuario)
+        {
+            if (idUsuario > 0)
+                return Notificacao_P1.CountTodasNotificacoesUsuarioAtiva(idUsuario);
+            else
+                return 0;
         }
 
     }
