@@ -290,9 +290,9 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -318,9 +318,9 @@ namespace BeaHelperAPI.Controllers
                             _eventoService.AtualizarEventoBanco(evento);
                             return Ok();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-                            return BadRequest();
+                            return BadRequest(ex.Message);
                         }
                     }
                     else
@@ -333,9 +333,9 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -376,9 +376,9 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }

@@ -277,8 +277,8 @@ namespace BeaHelper.BLL.BD
             }
 
             parms[8].Value = this._semData;
-            parms[9].Value = this._eventoRecorrente;
-            parms[10].Value = this._privado;
+            parms[9].Value = this._privado;
+            parms[10].Value = this._eventoRecorrente;
         }
         #endregion
 

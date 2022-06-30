@@ -21,7 +21,7 @@ namespace BeaHelperAPI.Controllers
         //404 não encontrado
 
         //return NotFound(); Não encontrado;
-        //return BadRequest(); Status 400 contém erros
+        //return BadRequest(ex.Message); Status 400 contém erros
         //return Ok(); Status 200 -  operação deu certo poderá passar um objeto como parametro
 
         private readonly ILogger<LoginController> _logger;
@@ -211,7 +211,7 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return NotFound();
                 throw;
@@ -249,9 +249,9 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
@@ -292,9 +292,9 @@ namespace BeaHelperAPI.Controllers
                     return NotFound();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex.Message);
                 throw;
             }
         }
