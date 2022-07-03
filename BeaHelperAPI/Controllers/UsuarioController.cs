@@ -31,7 +31,7 @@ namespace BeaHelperAPI.Controllers
         {
             try
             {
-                List<Usuario> usuarios = Usuario_P2.TodosUsuarios(IdUsuario);
+                List<UsuarioCompleto> usuarios = Usuario_P2.TodosUsuarios(IdUsuario);
 
                 foreach (var usu in usuarios)
                 {
@@ -40,6 +40,25 @@ namespace BeaHelperAPI.Controllers
                         usu.JaConvidado = true;
                     else
                         usu.JaConvidado = false;
+
+                    var Avaliacao = Avaliacao_P1.TodasAvaliacoesUsuario(usu.Id_Usuario);
+
+                    if (Avaliacao.Count > 0)
+                    {
+                        double NotaSomadas = 0;
+                        for (int i = 0; i < Avaliacao.Count; i++)
+                        {
+                            NotaSomadas += Avaliacao[i].Nota;
+                        }
+                        var media = NotaSomadas / Avaliacao.Count;
+                        media = Math.Round(media, 1);
+                        usu.NotaMedia = media;
+                        usu.NuncaAvaliado = false;
+                    }
+                    else
+                    {
+                        usu.NuncaAvaliado = true;
+                    }
                 }
 
                 return Ok(usuarios);

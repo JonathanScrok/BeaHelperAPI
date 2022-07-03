@@ -165,11 +165,11 @@ namespace BeaHelper.BLL.BD
         #endregion
 
         #region Busca todos os Usuários do Banco
-        public static List<Usuario> TodosUsuarios(int? IdUsuario = null)
+        public static List<UsuarioCompleto> TodosUsuarios(int? IdUsuario = null)
         {
             SqlConnection conn = null;
             SqlDataReader reader = null;
-            List<Usuario> usuarios = new List<Usuario>();
+            List<UsuarioCompleto> usuarios = new List<UsuarioCompleto>();
 
             try
             {
@@ -191,11 +191,11 @@ namespace BeaHelper.BLL.BD
                     cmd = new SqlCommand(SELECT_TODOSUSUARIOS, conn);
                 }
 
-                Mapper.CreateMap<IDataRecord, Usuario>();
+                Mapper.CreateMap<IDataRecord, UsuarioCompleto>();
 
                 using (reader = cmd.ExecuteReader())
                 {
-                    usuarios = Mapper.Map<List<Usuario>>(reader);
+                    usuarios = Mapper.Map<List<UsuarioCompleto>>(reader);
                     return usuarios;
                 }
             }
